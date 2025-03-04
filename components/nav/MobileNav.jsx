@@ -1,21 +1,28 @@
+"use client";
+import { motion } from "framer-motion";
 import {
   AboutIcon,
   HomeIcon,
   MessageIcon,
-  MoonIcon,
   ProjectIcon,
   ServiceIcon,
 } from "@/svg/Icon";
 import React from "react";
 import A from "./A";
+import ThemeToggle from "../theme/ThemeToggle";
 
 const MobileNav = () => {
   return (
-    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4 bg-white/10 backdrop-blur-[5px] border border-white/20 z-50 p-3 px-5 rounded-xl md:hidden">
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="fixed bottom-4 left-1/2 -translate-x-1/2 flex gap-4 dark:bg-white/10 bg-black/40 backdrop-blur-[5px] border border-white/20 z-50 p-3 rounded-xl md:hidden overflow-hidden"
+    >
       <A href="#" title="Home">
         <HomeIcon className="size-6" />
       </A>
-      <A href="#" title="Services">
+      <A href="/services" title="Services">
         <ServiceIcon className="size-6" />
       </A>
       <A href="#" title="Project">
@@ -27,10 +34,8 @@ const MobileNav = () => {
       <A title="Message" href="#">
         <MessageIcon className="size-6" />
       </A>
-      <A title="Message" href="#">
-        <MoonIcon className="size-6" />
-      </A>
-    </div>
+      <ThemeToggle />
+    </motion.div>
   );
 };
 
