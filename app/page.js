@@ -61,38 +61,6 @@ export default function Home() {
           <Button className="bg-red-500 mt-4 w-full">Contact Me</Button>
         </div>
       </div>
-
-      {/* Right Menu Section - Adjusted for Mobile */}
-      <div className="bg-white/10 backdrop-blur-sm border border-white/20 shadow-xl fixed right-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 p-3 rounded-xl">
-        <button className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center hover:bg-red-600 transition">
-          🏠
-        </button>
-        <button className="w-10 h-10 bg-gray-700/60 rounded-full flex items-center justify-center hover:bg-gray-600 transition">
-          📄
-        </button>
-        <button className="w-10 h-10 bg-gray-700/60 rounded-full flex items-center justify-center hover:bg-gray-600 transition">
-          📩
-        </button>
-      </div>
-
-      {/* Bottom Menu for Mobile */}
-      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4 bg-white/10 backdrop-blur-[5px] border border-white/20 z-50 p-3 rounded-xl md:hidden">
-        <button className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center">
-          🏠
-        </button>
-        <button className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center">
-          🏠
-        </button>
-        <button className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center">
-          🏠
-        </button>
-        <button className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center">
-          📄
-        </button>
-        <button className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center">
-          📩
-        </button>
-      </div>
     </div>
   );
 }
