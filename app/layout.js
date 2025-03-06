@@ -27,8 +27,8 @@ export default function RootLayout({ children }) {
             <BackgroundSvg className="absolute inset-0 w-full h-full" />
           </div>
           {/* Blurred Circle Effect */}
-          <div className="absolute top-20 left-20 w-[300px] h-[300px] rounded-full dark:bg-blue-500 bg-amber-300  opacity-10 blur-3xl"></div>
-          <div className="absolute bottom-10 right-10 w-[400px] h-[400px] rounded-full dark:bg-indigo-500 bg-teal-500 opacity-10 blur-3xl"></div>
+          <div className="absolute top-20 left-20 w-[300px] h-[300px] rounded-full dark:bg-blue-500 bg-amber-300  opacity-20 blur-3xl"></div>
+          <div className="absolute bottom-10 right-10 w-[400px] h-[400px] rounded-full dark:bg-indigo-500 bg-teal-500 opacity-20 blur-3xl"></div>
 
           {/* Main Content */}
 
