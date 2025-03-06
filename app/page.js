@@ -32,12 +32,12 @@ export default function Home() {
           </div>
 
           {/* <!--===== INFO =====--> */}
-          <div className="bg-gray-200 dark:bg-gray-800 px-8 py-6 rounded-4xl lg:col-start-1 lg:col-span-1 lg:row-start-1 lg:row-span-1 animate-fade-left ">
+          <div className="bg-gray-200 dark:bg-[#1a1941ad] ring ring-white/30 px-8 py-6 rounded-4xl lg:col-start-1 lg:col-span-1 lg:row-start-1 lg:row-span-1 animate-fade-left ">
             <div className="flex justify-center items-center gap-x-2 animate-fade-right">
-              <div className="w-8 h-8 rounded-[50%] bg-[#090f2b]"></div>
+              <div className="w-8 h-8 rounded-[50%] bg-[#582aff]"></div>
               <h1 className="text-base "> Tanvir Ahmad</h1>
             </div>
-            <div className="h-[180px] bg-red-50 dark:bg-[#090f2b56] relative rounded-4xl grid my-6 overflow-hidden">
+            <div className="h-[180px] bg-red-50 dark:bg-gray-800 relative rounded-4xl grid my-6 overflow-hidden">
               <Image
                 className="w-[200px] self-end z-10 justify-self-start "
                 alt="tanvr"
@@ -54,7 +54,7 @@ export default function Home() {
           </div>
 
           {/* <!--===== ABOUT =====--> */}
-          <div className="bg-gray-200 dark:bg-gray-800 px-8 py-6 rounded-4xl lg:col-start-3 lg:col-span-1 lg:row-start-1 lg:row-span-2 lg:content-center animate-fade-right ">
+          <div className="bg-gray-200 dark:bg-[#1a1941ad] ring ring-white/30 px-8 py-6 rounded-4xl lg:col-start-3 lg:col-span-1 lg:row-start-1 lg:row-span-2 lg:content-center animate-fade-right ">
             <h3 className="text-sm mb-4">
               Tanvir Ahmad - <b>Web Designer & Developer</b>
             </h3>
@@ -97,7 +97,7 @@ export default function Home() {
           </div>
 
           {/* <!--===== SKILLS =====--> */}
-          <div className="bg-gray-200 dark:bg-gray-800 px-8 py-6 rounded-4xl mb-20 lg:col-start-1 lg:col-span-1 lg:row-start-2 lg:row-span-1 animate-fade-up">
+          <div className="bg-gray-200 dark:bg-[#1a1941ad] ring ring-white/30 px-8 py-6 rounded-4xl mb-20 lg:col-start-1 lg:col-span-1 lg:row-start-2 lg:row-span-1 animate-fade-up">
             <h2 className="text-xl">Skills</h2>
             <div className="flex flex-wrap items-center gap-10 my-2 animate-fade-left">
               <img
