@@ -2,23 +2,28 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Tanvir_img from "@/public/img/home-perfil.png";
 import Image2 from "@/public/img/about-perfil.png";
+import Image3 from "@/public/img/test.png";
 import Link from "next/link";
 import { FacebookIcon, GithubIcon, LinkdinIcon } from "@/svg/Icon";
 
 export default function Home() {
   return (
     <>
-      <section className="home section" id="home">
-        <div className="sm:grid-cols-2 lg:grid-cols-[180px_560px_280px] sm:items-start lg:items-stretch container grid">
+      <section className="pt-8 pb-12  " id="home">
+        <div className="justify-center p-5 md:grid-cols-[350px_350px] items-start md:p-5 lg:mx-auto xl:grid-cols-[300px_560px_300px] xl:items-stretch gap-6 grid">
           {/* <!--===== PERFIL =====--> */}
-          <div className="relative sm:h-full  bg-red-500 h-[415px] rounded-2xl p-4 grid overflow-hidden lg:col-span-1 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:p-8">
+          <div className=" dark:ring-white/35 ring-indigo-500 ring relative md:h-full h-[415px] rounded-2xl p-4 grid overflow-hidden lg:col-span-1 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:p-8 animate-fade-down">
             <Image
-              className="w-[250px] absolute self-end justify-self-center "
+              className="w-[250px] lg:w-[480px] absolute self-end justify-self-center "
               alt="Tanvir_Ahmad"
               src={Tanvir_img}
             />
-            <div className="self-end bg-black/10 backdrop-blur-lg px-6 py-4 rounded-3xl border border-white/70">
+            <div className="self-end bg-black/10 backdrop-blur-lg px-8 py-6 rounded-3xl border border-white/70">
               <h1 className="text-xl text-white mb-4">Tanvir Ahmad</h1>
+              <p className="text-xs mb-5 max-w-[280px]">
+                Visit the projects section to see the work done with these web
+                technologies.
+              </p>
               <div className="grid gap-x-2 grid-cols-2 ">
                 <Button>Project</Button>
                 <Button variant="secondary">Services</Button>
@@ -27,16 +32,16 @@ export default function Home() {
           </div>
 
           {/* <!--===== INFO =====--> */}
-          <div className="bg-gray-500 px-8 py-6 rounded-4xl lg:col-start-1 lg:col-span-1 lg:row-start-1 lg:row-span-1">
-            <div className="flex justify-center items-center gap-x-2 ">
-              <div className="w-8 h-8 rounded-[50%] bg-red-500"></div>
+          <div className="bg-gray-200 dark:bg-gray-800 px-8 py-6 rounded-4xl lg:col-start-1 lg:col-span-1 lg:row-start-1 lg:row-span-1 animate-fade-left ">
+            <div className="flex justify-center items-center gap-x-2 animate-fade-right">
+              <div className="w-8 h-8 rounded-[50%] bg-[#090f2b]"></div>
               <h1 className="text-base "> Tanvir Ahmad</h1>
             </div>
-            <div className="h-[180px] rounded-4xl grid my-6 overflow-hidden bg-indigo-400 ">
+            <div className="h-[180px] bg-red-50 dark:bg-[#090f2b56] relative rounded-4xl grid my-6 overflow-hidden">
               <Image
-                className="w-[140px] self-end justify-self-center "
+                className="w-[200px] self-end z-10 justify-self-start "
                 alt="tanvr"
-                src={Image2}
+                src={Image3}
               />
             </div>
             <p className="font-xs mb-8">
@@ -49,8 +54,8 @@ export default function Home() {
           </div>
 
           {/* <!--===== ABOUT =====--> */}
-          <div className="bg-gray-500 px-8 py-6 rounded-4xl ">
-            <h3 className="font-xl mb-4">
+          <div className="bg-gray-200 dark:bg-gray-800 px-8 py-6 rounded-4xl lg:col-start-3 lg:col-span-1 lg:row-start-1 lg:row-span-2 lg:content-center animate-fade-right ">
+            <h3 className="text-sm mb-4">
               Tanvir Ahmad - <b>Web Designer & Developer</b>
             </h3>
             <p className="about_description">
@@ -77,7 +82,7 @@ export default function Home() {
                 <FacebookIcon />
               </Link>
             </div>
-            <div className="bg-green-400 h-[180px] rounded-4xl overflow-hidden ">
+            <div className="dark:bg-[#142041] bg-amber-50 h-[180px] rounded-4xl overflow-hidden ">
               <img
                 alt="logo"
                 src="/img/about-perfil.png"
@@ -92,9 +97,9 @@ export default function Home() {
           </div>
 
           {/* <!--===== SKILLS =====--> */}
-          <div className="bg-gray-500 px-8 py-6 rounded-4xl mb-20">
+          <div className="bg-gray-200 dark:bg-gray-800 px-8 py-6 rounded-4xl mb-20 lg:col-start-1 lg:col-span-1 lg:row-start-2 lg:row-span-1 animate-fade-up">
             <h2 className="text-xl">Skills</h2>
-            <div className="flex flex-wrap items-center gap-12 my-2">
+            <div className="flex flex-wrap items-center gap-10 my-2 animate-fade-left">
               <img
                 src="/img/skills-html.svg"
                 alt="skill"
