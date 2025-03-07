@@ -7,7 +7,7 @@ const ServicesCenterContent = () => {
         <h1 className="text-3xl md:text-5xl text-center font-bold z-10 dark:text-white text-gray-900 mb-6 animate-fade-down">
           Professional Services
         </h1>
-        <p className="dark:text-white text-gray-600 text-center z-10 max-w-3xl md:text-lg text-base animate-fade-up">
+        <p className="dark:text-white text-gray-600 text-center p-2 lg:p-0 z-10 max-w-3xl md:text-lg text-base animate-fade-up">
           Delivering exceptional web development and software engineering
           solutions. From concept to deployment, I ensure your project succeeds
           with cutting-edge technology and industry best practices.

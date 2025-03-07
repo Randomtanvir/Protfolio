@@ -7,7 +7,9 @@ const Info = () => {
   return (
     <div className="bg-gray-200 dark:bg-[#1a1941ad] ring ring-white/30 px-8 py-6 rounded-4xl lg:col-start-1 lg:col-span-1 lg:row-start-1 lg:row-span-1 animate-fade-left ">
       <div className="flex justify-center items-center gap-x-2 animate-fade-right">
-        <div className="w-8 h-8 rounded-[50%] bg-[#3d1faa]"></div>
+        <div className="w-8 h-8 relative rounded-full bg-[#4a2fc3] flex items-center justify-center">
+          <div className="w-4 h-4 rounded-full bg-[#ffffff7c] animate-bounce transition duration-[2s]"></div>
+        </div>
         <h1 className="text-base">Tanvir Ahmad</h1>
       </div>
       <div className="h-[180px] relative bg-transparent rounded-4xl grid my-6 overflow-hidden">

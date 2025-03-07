@@ -9,10 +9,18 @@ const About = () => {
       <h3 className="text-sm mb-4">
         Tanvir Ahmad - <b>Web Designer & Developer</b>
       </h3>
-      <p className="about_description">
+      <p className="text-sm mb-6">
         Located in Peru, I have several years of experience in web development
         and design, carrying out several successful projects.
       </p>
+
+      <div className="relative h-[180px] rounded-4xl overflow-hidden bg-[#0c787c77] dark:bg-gradient-to-tr dark:from-[#01024159] dark:to-[#056b1fa6] opacity-90 ">
+        <img
+          alt="logo"
+          src="/img/about-perfil.png"
+          className="w-[250px] justify-self-center z-10 -translate-y-10  "
+        />
+      </div>
       <div className="flex justify-center gap-x-6 my-8">
         <Link
           className="w-10 h-10 bg-white text-black text-xl rounded-[50%] grid place-items-center transition-all hover:bg-indigo-500 z-10 cursor-pointer hover:text-white"
@@ -32,13 +40,6 @@ const About = () => {
         >
           <FacebookIcon />
         </Link>
-      </div>
-      <div className="relative h-[180px] rounded-4xl overflow-hidden dark:bg-gradient-to-tr dark:from-[#01024159] dark:to-[#056b1fa6] opacity-90 ">
-        <img
-          alt="logo"
-          src="/img/about-perfil.png"
-          className="w-[250px] justify-self-center z-10 -translate-y-10  "
-        />
       </div>
       <p className="text-xs mt-4 mb-8 ">
         He doesn&apos;t write messages on social networks, send me an email and

@@ -15,7 +15,7 @@ const Perfil = () => {
   return (
     <div className=" dark:ring-white/35 ring-indigo-500 ring relative md:h-full h-[415px] rounded-2xl p-4 grid overflow-hidden lg:col-span-1 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:p-8 animate-fade-down">
       <Image
-        className="w-[250px] lg:w-[480px] absolute self-end justify-self-center "
+        className="w-[250px] lg:w-[480px] absolute self-end justify-self-center"
         alt="Tanvir_Ahmad"
         src={Tanvir_img}
       />
