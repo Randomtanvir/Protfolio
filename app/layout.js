@@ -20,12 +20,12 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <ThemeProvider>
         <body
-          className={`${MerriweatherFont.className} antialiased w-full dark:text-white text-gray-600 min-h-screen flex flex-col items-center dark:bg-[#0a0f1d] bg-[#F9FAFB]`}
+          className={`${MerriweatherFont.className}  bg-[url('/mainbg.svg')] bg-cover bg-center antialiased w-full dark:text-white text-gray-600 min-h-screen flex flex-col items-center dark:bg-[#0a0f1d] bg-[#F9FAFB]`}
         >
           {/* Background Container */}
-          <div className="absolute inset-0 w-full h-full overflow-hidden">
+          {/* <div className="absolute inset-0 w-full h-full overflow-hidden">
             <BackgroundSvg className="absolute inset-0 w-full h-full" />
-          </div>
+          </div> */}
           {/* Blurred Circle Effect */}
           <div>
             <div className="absolute top-20 left-20 w-[300px] h-[300px] rounded-full dark:bg-blue-500 bg-amber-300  opacity-20 blur-3xl"></div>
