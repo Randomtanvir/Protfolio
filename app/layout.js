@@ -1,6 +1,5 @@
 import { Merriweather } from "next/font/google";
 import "./globals.css";
-import BackgroundSvg from "@/svg/BackgroundSvg";
 import Navbar from "@/components/nav/Navbar";
 import ThemeProvider from "@/provider/ThemeProvider";
 
