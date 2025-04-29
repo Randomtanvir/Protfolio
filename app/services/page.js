@@ -1,6 +1,6 @@
 import React from "react";
-import ServicesCenterContent from "@/components/services/ServicesCenterContent";
-import ScrollArrow from "@/components/services/ScrollArrow";
+import ServicesCenterContent from "./_components/ServicesCenterContent";
+import ScrollArrow from "./_components/ScrollArrow";
 import ServicesBody from "./_components/ServicesBody";
 
 const services = [
