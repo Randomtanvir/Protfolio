@@ -1,9 +1,21 @@
-"use client"
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
 
 const Skills = () => {
-  const skills = ["html", "css", "javascript", "react", "next", "node", "git", "github", "sass", "tailwind-css", "photoshop"];
+  const skills = [
+    "html",
+    "css",
+    "javascript",
+    "react",
+    "next",
+    "node",
+    "git",
+    "github",
+    "sass",
+    "tailwind-css",
+    "photoshop",
+  ];
 
   return (
     <motion.div
@@ -13,7 +25,9 @@ const Skills = () => {
       className="relative"
     >
       <div className="relative bg-white/40 dark:bg-gray-800/40 backdrop-blur-xl rounded-3xl p-8 border border-white/20 dark:border-gray-700/20">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Skills</h2>
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+          Skills
+        </h2>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-6">
           {skills.map((skill, index) => (
             <motion.div

@@ -19,19 +19,19 @@ const MobileNav = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="fixed bottom-4 left-1/2 -translate-x-1/2 flex gap-4 dark:bg-white/10 bg-black/40 backdrop-blur-[5px] border border-white/20 z-50 p-3 rounded-xl md:hidden overflow-hidden"
     >
-      <A href="#" title="Home">
+      <A href="/" title="Home">
         <HomeIcon className="size-6" />
       </A>
       <A href="/services" title="Services">
         <ServiceIcon className="size-6" />
       </A>
-      <A href="#" title="Project">
+      <A href="/projects" title="Project">
         <ProjectIcon className="size-6" />
       </A>
-      <A href="#" title="About">
+      <A href="/about" title="About">
         <AboutIcon className="size-6" />
       </A>
-      <A title="Message" href="#">
+      <A title="Contact" href="/contact">
         <MessageIcon className="size-6" />
       </A>
       <ThemeToggle />
