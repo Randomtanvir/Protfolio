@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -34,82 +34,212 @@ const menuItems = [
 
 const DashboardSidebar = () => {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <motion.aside
-      initial={{ x: -100, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="fixed left-0 top-0 z-40 h-screen w-64 bg-white/10 backdrop-blur-xl border-r border-gray-200/10 dark:bg-gray-800/10"
-    >
-      {/* Logo Section */}
-      <div className="flex h-16 items-center justify-center border-b border-gray-200/10">
-        <motion.h1
-          whileHover={{ scale: 1.05 }}
-          className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent"
+    <>
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-white/10 backdrop-blur-lg border border-gray-200/10 dark:bg-gray-800/10"
+      >
+        <svg
+          className="w-6 h-6 text-gray-700 dark:text-gray-200"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
         >
-          Portfolio
-        </motion.h1>
-      </div>
+          {isMobileMenuOpen ? (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          ) : (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          )}
+        </svg>
+      </button>
 
-      {/* Navigation Menu */}
-      <nav className="p-4 space-y-2">
-        {menuItems.map((item, index) => {
-          const isActive = pathname === item.href;
-          
-          return (
-            <Link key={index} href={item.href}>
-              <motion.div
-                whileHover={{ x: 5 }}
-                whileTap={{ scale: 0.95 }}
-                className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
-                  isActive
-                    ? "bg-blue-500/10 text-blue-500 dark:text-blue-400"
-                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-100/10"
-                }`}
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Desktop Sidebar */}
+      <motion.aside
+        initial={false}
+        animate={{ 
+          x: 0,
+          opacity: 1
+        }}
+        className="fixed left-0 top-0 z-40 h-screen w-64 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border-r border-gray-200/10 hidden lg:block"
+      >
+        {/* Logo Section */}
+        <div className="flex h-16 items-center justify-center border-b border-gray-200/10">
+          <motion.h1
+            whileHover={{ scale: 1.05 }}
+            className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent"
+          >
+            Portfolio
+          </motion.h1>
+        </div>
+
+        {/* Navigation Menu */}
+        <nav className="p-4 space-y-2">
+          {menuItems.map((item, index) => {
+            const isActive = pathname === item.href;
+            
+            return (
+              <Link key={index} href={item.href}>
+                <motion.div
+                  whileHover={{ x: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                    isActive
+                      ? "bg-blue-500/10 text-blue-500 dark:text-blue-400"
+                      : "text-gray-600 dark:text-gray-300 hover:bg-gray-100/10"
+                  }`}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d={item.icon}
-                  />
-                </svg>
-                <span className="font-medium">{item.title}</span>
-                
-                {/* Active Indicator */}
-                {isActive && (
-                  <motion.div
-                    layoutId="activeIndicator"
-                    className="absolute right-4 w-1.5 h-1.5 rounded-full bg-blue-500"
-                  />
-                )}
-              </motion.div>
-            </Link>
-          );
-        })}
-      </nav>
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d={item.icon}
+                    />
+                  </svg>
+                  <span className="font-medium">{item.title}</span>
+                  
+                  {/* Active Indicator */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeIndicator"
+                      className="absolute right-4 w-1.5 h-1.5 rounded-full bg-blue-500"
+                    />
+                  )}
+                </motion.div>
+              </Link>
+            );
+          })}
+        </nav>
 
-      {/* User Profile Section */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200/10">
-        <motion.div
-          whileHover={{ y: -2 }}
-          className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-100/5 cursor-pointer"
-        >
-          <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
-          <div>
-            <h3 className="text-sm font-medium text-gray-900 dark:text-white">John Doe</h3>
-            <p className="text-xs text-gray-600 dark:text-gray-400">Administrator</p>
-          </div>
-        </motion.div>
-      </div>
-    </motion.aside>
+        {/* User Profile Section */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200/10">
+          <motion.div
+            whileHover={{ y: -2 }}
+            className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-100/5 cursor-pointer"
+          >
+            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
+            <div>
+              <h3 className="text-sm font-medium text-gray-900 dark:text-white">John Doe</h3>
+              <p className="text-xs text-gray-600 dark:text-gray-400">Administrator</p>
+            </div>
+          </motion.div>
+        </div>
+      </motion.aside>
+
+      {/* Mobile Sidebar */}
+      <motion.aside
+        initial={{ x: -280 }}
+        animate={{ 
+          x: isMobileMenuOpen ? 0 : -280,
+          transition: {
+            type: "spring",
+            stiffness: 300,
+            damping: 30
+          }
+        }}
+        className="fixed left-0 top-0 z-50 h-screen w-[280px] bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border-r border-gray-200/10 lg:hidden"
+      >
+        {/* Mobile Logo Section */}
+        <div className="flex h-16 items-center justify-center border-b border-gray-200/10">
+          <motion.h1
+            whileHover={{ scale: 1.05 }}
+            className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent"
+          >
+            Portfolio
+          </motion.h1>
+        </div>
+
+        {/* Mobile Navigation Menu */}
+        <nav className="p-4 space-y-2">
+          {menuItems.map((item, index) => {
+            const isActive = pathname === item.href;
+            
+            return (
+              <Link key={index} href={item.href} onClick={() => setIsMobileMenuOpen(false)}>
+                <motion.div
+                  whileHover={{ x: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                    isActive
+                      ? "bg-blue-500/10 text-blue-500 dark:text-blue-400"
+                      : "text-gray-600 dark:text-gray-300 hover:bg-gray-100/10"
+                  }`}
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d={item.icon}
+                    />
+                  </svg>
+                  <span className="font-medium">{item.title}</span>
+                  
+                  {/* Active Indicator */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="mobileActiveIndicator"
+                      className="absolute right-4 w-1.5 h-1.5 rounded-full bg-blue-500"
+                    />
+                  )}
+                </motion.div>
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Mobile User Profile Section */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200/10">
+          <motion.div
+            whileHover={{ y: -2 }}
+            className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-100/5 cursor-pointer"
+          >
+            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
+            <div>
+              <h3 className="text-sm font-medium text-gray-900 dark:text-white">John Doe</h3>
+              <p className="text-xs text-gray-600 dark:text-gray-400">Administrator</p>
+            </div>
+          </motion.div>
+        </div>
+      </motion.aside>
+    </>
   );
 };
 

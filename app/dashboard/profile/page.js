@@ -80,230 +80,161 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <DashboardSidebar />
       
-      <div className="ml-64 min-h-screen p-8">
-        <div className="max-w-5xl mx-auto space-y-8">
-          {/* Header */}
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex items-center justify-between bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
-          >
-            <div>
-              <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-                Profile Settings
-              </h1>
-              <p className="mt-1 text-gray-500 dark:text-gray-400">
-                Manage your personal information and preferences
-              </p>
+      <main className="min-h-screen w-full lg:pl-64 pb-8">
+        <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+          <div className="space-y-4 sm:space-y-6">
+            {/* Header */}
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6"
+            >
+              <div className="w-full sm:w-auto mb-4 sm:mb-0">
+                <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white">
+                  Profile Settings
+                </h1>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  Manage your personal information and preferences
+                </p>
+              </div>
+              <Button
+                variant="outline"
+                onClick={() => fileInputRef.current?.click()}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Update Photo
+              </Button>
+              <input
+                type="file"
+                ref={fileInputRef}
+                className="hidden"
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
+            </motion.div>
+
+            {/* Profile Content */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
+              {/* Left Column - Personal Info and Availability */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="lg:col-span-4 space-y-4 sm:space-y-6"
+              >
+                {/* Personal Info Card */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Personal Information</h3>
+                  <div className="space-y-4">
+                    {Object.entries(profile.personalInfo).map(([key, value]) => (
+                      key !== "avatar" && (
+                        <div key={key} className="group">
+                          <label className="text-sm text-gray-500 dark:text-gray-400 capitalize block mb-1">
+                            {key.replace(/([A-Z])/g, ' $1').trim()}
+                          </label>
+                          <input
+                            className="w-full px-3 py-2 text-gray-900 dark:text-white bg-transparent border rounded-lg border-gray-200 dark:border-gray-700 hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
+                            value={value}
+                            onChange={(e) => updatePersonalInfo(key, e.target.value)}
+                          />
+                        </div>
+                      )
+                    ))}
+                  </div>
+                </div>
+
+                {/* Availability Card */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Availability</h3>
+                  <div className="space-y-4">
+                    {Object.entries(profile.availability).map(([key, value]) => (
+                      <div key={key} className="group">
+                        <label className="text-sm text-gray-500 dark:text-gray-400 capitalize block mb-1">
+                          {key.replace(/([A-Z])/g, ' $1').trim()}
+                        </label>
+                        <input
+                          className="w-full px-3 py-2 text-gray-900 dark:text-white bg-transparent border rounded-lg border-gray-200 dark:border-gray-700 hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
+                          value={value}
+                          onChange={(e) => updateAvailability(key, e.target.value)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Right Column - Bio, Social Links and Avatar */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="lg:col-span-8 space-y-4 sm:space-y-6"
+              >
+                {/* Avatar Card */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
+                  <div className="relative mx-auto w-32 h-32 sm:w-40 sm:h-40 group">
+                    <div className="relative w-full h-full rounded-full overflow-hidden ring-4 ring-gray-100 dark:ring-gray-700">
+                      <Image
+                        src={profile.personalInfo.avatar}
+                        alt="Profile"
+                        className="object-cover"
+                        fill
+                        sizes="(max-width: 768px) 128px, 160px"
+                      />
+                    </div>
+                    <button
+                      onClick={() => fileInputRef.current?.click()}
+                      className="absolute inset-0 bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                    >
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Bio Card */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Bio</h3>
+                  <textarea
+                    className="w-full min-h-[8rem] text-gray-900 dark:text-white bg-transparent border rounded-lg border-gray-200 dark:border-gray-700 p-3 hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all resize-none"
+                    value={profile.bio}
+                    onChange={(e) => setProfile(prev => ({ ...prev, bio: e.target.value }))}
+                    placeholder="Write something about yourself..."
+                  />
+                </div>
+
+                {/* Social Links */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Social Links</h3>
+                  <div className="grid grid-cols-1 gap-4 sm:gap-6">
+                    {Object.entries(profile.social).map(([platform, value]) => (
+                      <div key={platform}>
+                        <label className="text-sm text-gray-500 dark:text-gray-400 capitalize block mb-1">
+                          {platform}
+                        </label>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-gray-400 whitespace-nowrap">{platform}.com/</span>
+                          <input
+                            className="flex-1 min-w-0 px-3 py-2 text-gray-900 dark:text-white bg-transparent border rounded-lg border-gray-200 dark:border-gray-700 hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
+                            value={value.replace(`${platform}.com/`, "")}
+                            onChange={(e) => updateSocial(platform, `${platform}.com/${e.target.value}`)}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
             </div>
-            <Button
-              variant="outline"
-              onClick={() => fileInputRef.current?.click()}
-              className="flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              Update Photo
-            </Button>
-            <input
-              type="file"
-              ref={fileInputRef}
-              className="hidden"
-              accept="image/*"
-              onChange={handleImageUpload}
-            />
-          </motion.div>
-
-          {/* Profile Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Column - Avatar and Personal Info */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="lg:col-span-1 space-y-8"
-            >
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 space-y-6">
-                <div className="relative w-32 h-32 mx-auto">
-                  <Image
-                    src={profile.personalInfo.avatar}
-                    alt="Profile"
-                    fill
-                    className="rounded-full object-cover"
-                  />
-                  <button
-                    onClick={() => fileInputRef.current?.click()}
-                    className="absolute bottom-0 right-0 p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
-                  </button>
-                </div>
-
-                <div className="space-y-4">
-                  <input
-                    className="w-full text-center text-xl font-bold text-gray-900 dark:text-white bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-                    value={profile.personalInfo.name}
-                    onChange={(e) => updatePersonalInfo("name", e.target.value)}
-                    placeholder="Your Name"
-                  />
-                  <input
-                    className="w-full text-center text-gray-600 dark:text-gray-400 bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-                    value={profile.personalInfo.title}
-                    onChange={(e) => updatePersonalInfo("title", e.target.value)}
-                    placeholder="Your Title"
-                  />
-                </div>
-              </div>
-
-              {/* Availability Section */}
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Availability</h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-sm text-gray-500 dark:text-gray-400">Status</label>
-                    <input
-                      className="w-full text-gray-900 dark:text-white bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-                      value={profile.availability.status}
-                      onChange={(e) => updateAvailability("status", e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-500 dark:text-gray-400">Work Hours</label>
-                    <input
-                      className="w-full text-gray-900 dark:text-white bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-                      value={profile.availability.workHours}
-                      onChange={(e) => updateAvailability("workHours", e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-500 dark:text-gray-400">Rate</label>
-                    <input
-                      className="w-full text-gray-900 dark:text-white bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-                      value={profile.availability.rate}
-                      onChange={(e) => updateAvailability("rate", e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Right Column - Contact, Bio, and Social */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="lg:col-span-2 space-y-8"
-            >
-              {/* Contact Information */}
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="text-sm text-gray-500 dark:text-gray-400">Email</label>
-                    <input
-                      className="w-full text-gray-900 dark:text-white bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-                      value={profile.personalInfo.email}
-                      onChange={(e) => updatePersonalInfo("email", e.target.value)}
-                      type="email"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-500 dark:text-gray-400">Phone</label>
-                    <input
-                      className="w-full text-gray-900 dark:text-white bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-                      value={profile.personalInfo.phone}
-                      onChange={(e) => updatePersonalInfo("phone", e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-500 dark:text-gray-400">Location</label>
-                    <input
-                      className="w-full text-gray-900 dark:text-white bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-                      value={profile.personalInfo.location}
-                      onChange={(e) => updatePersonalInfo("location", e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-500 dark:text-gray-400">Website</label>
-                    <input
-                      className="w-full text-gray-900 dark:text-white bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-                      value={profile.personalInfo.website}
-                      onChange={(e) => updatePersonalInfo("website", e.target.value)}
-                      type="url"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Bio */}
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Bio</h3>
-                <textarea
-                  className="w-full h-32 text-gray-900 dark:text-white bg-transparent border-2 border-gray-200 dark:border-gray-700 rounded-lg p-3 hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all resize-none"
-                  value={profile.bio}
-                  onChange={(e) => setProfile(prev => ({ ...prev, bio: e.target.value }))}
-                  placeholder="Write something about yourself..."
-                />
-              </div>
-
-              {/* Social Links */}
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Social Links</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="text-sm text-gray-500 dark:text-gray-400">GitHub</label>
-                    <div className="flex items-center">
-                      <span className="text-gray-400 mr-2">github.com/</span>
-                      <input
-                        className="flex-1 text-gray-900 dark:text-white bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-                        value={profile.social.github.replace("github.com/", "")}
-                        onChange={(e) => updateSocial("github", `github.com/${e.target.value}`)}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-500 dark:text-gray-400">LinkedIn</label>
-                    <div className="flex items-center">
-                      <span className="text-gray-400 mr-2">linkedin.com/in/</span>
-                      <input
-                        className="flex-1 text-gray-900 dark:text-white bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-                        value={profile.social.linkedin.replace("linkedin.com/in/", "")}
-                        onChange={(e) => updateSocial("linkedin", `linkedin.com/in/${e.target.value}`)}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-500 dark:text-gray-400">Twitter</label>
-                    <div className="flex items-center">
-                      <span className="text-gray-400 mr-2">twitter.com/</span>
-                      <input
-                        className="flex-1 text-gray-900 dark:text-white bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-                        value={profile.social.twitter.replace("twitter.com/", "")}
-                        onChange={(e) => updateSocial("twitter", `twitter.com/${e.target.value}`)}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-500 dark:text-gray-400">Instagram</label>
-                    <div className="flex items-center">
-                      <span className="text-gray-400 mr-2">instagram.com/</span>
-                      <input
-                        className="flex-1 text-gray-900 dark:text-white bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-                        value={profile.social.instagram.replace("instagram.com/", "")}
-                        onChange={(e) => updateSocial("instagram", `instagram.com/${e.target.value}`)}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
