@@ -14,7 +14,6 @@ const Skills = () => {
     "github",
     "sass",
     "tailwind-css",
-    "photoshop",
   ];
 
   return (
