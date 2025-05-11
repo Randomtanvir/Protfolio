@@ -9,7 +9,7 @@ export default function ProfilePage() {
   const fileInputRef = useRef(null);
   const [profile, setProfile] = useState({
     personalInfo: {
-      name: "John Doe",
+      name: "Tanvir Ahmad",
       title: "Full Stack Developer",
       email: "john@example.com",
       phone: "+1 (555) 123-4567",
