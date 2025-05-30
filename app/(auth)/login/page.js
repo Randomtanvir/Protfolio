@@ -39,7 +39,7 @@ export default function AdminLogin() {
           </div>
 
           <div className="text-sm font-semibold text-gray-500 tracking-[2px]">
-            COMPANY LOGO
+            Login to access your admin dashboard
           </div>
         </div>
 
@@ -58,10 +58,10 @@ export default function AdminLogin() {
             {/* Main Illustration */}
             <div className="relative z-10">
               {/* Dashed Circle */}
-              <div className="w-50 h-50 border-2 border-dashed border-gray-300 rounded-full absolute -top-12 -left-12 z-0"></div>
+              <div className="w-50 h-50 animate-pulse border-2 border-dashed border-gray-300 rounded-full absolute -top-12 -left-12 z-0"></div>
 
               {/* Computer Monitor */}
-              <div className="w-40 h-25 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg border-4 border-purple-500 relative z-20">
+              <div className="w-40 h-25 bg-gradient-to-br animate-pulse duration-initial from-gray-100 to-gray-200 rounded-lg border-4 border-purple-500 relative z-20">
                 {/* Screen Content */}
                 <div className="p-3 h-full flex flex-col">
                   {/* User Avatar */}
@@ -109,7 +109,7 @@ export default function AdminLogin() {
                   placeholder="Email Address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-4 pr-12 border-2 border-gray-200 rounded-xl text-base outline-none transition-colors focus:border-purple-500"
+                  className="w-full text-black p-4 pr-12 border-2 border-gray-200 rounded-xl text-base outline-none transition-colors focus:border-purple-500"
                 />
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl">
                   👤
@@ -123,7 +123,7 @@ export default function AdminLogin() {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full p-4 pr-12 border-2 border-gray-200 rounded-xl text-base outline-none transition-colors focus:border-purple-500"
+                  className="w-full text-black p-4 pr-12 border-2 border-gray-200 rounded-xl text-base outline-none transition-colors focus:border-purple-500"
                 />
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl">
                   🔒

@@ -205,5 +205,5 @@
 }
 
 .animate-pop {
-  animation: pop 0.8s ease-in-out infinite;
+  animation: pop 2s ease-in-out infinite;
 }
