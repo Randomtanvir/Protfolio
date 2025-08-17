@@ -1,13 +1,6 @@
-import { Merriweather } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/nav/Navbar";
 import ThemeProvider from "@/provider/ThemeProvider";
-
-const MerriweatherFont = Merriweather({
-  variable: "--font-merriweather", // Unique variable name
-  subsets: ["latin"],
-  weight: ["300", "400", "700", "900"],
-});
 
 export const metadata = {
   title: "Tanvir's Portfolio",
@@ -19,7 +12,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <ThemeProvider>
         <body
-          className={`${MerriweatherFont.className} relative min-h-screen w-full dark:bg-[#0a0f1d] bg-[#F9FAFB] dark:text-white text-gray-600 overflow-x-hidden`}
+          className={`relative min-h-screen w-full dark:bg-[#0a0f1d] bg-[#F9FAFB] dark:text-white text-gray-600 overflow-x-hidden`}
         >
           {/* Background Effects */}
           <div className="fixed inset-0 pointer-events-none">
