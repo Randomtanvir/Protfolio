@@ -1,18 +1,29 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
+import { Switch } from "@/components/ui/switch";
 import { motion } from "framer-motion";
 
-const ServiceCard = ({ service }) => {
+const ServicesCardInDashboard = ({ service }) => {
+  const [isDraft, setIsDraft] = useState(service?.status === "draft");
+
   return (
-    <div
-      className="
-    relative group 
-    rounded-2xl p-8 overflow-hidden
-    border border-black/10 dark:border-white/10
-    backdrop-blur-sm
-    bg-white/70 dark:bg-gray-900/60
-  "
-    >
+    <div className="relative group rounded-2xl p-8 overflow-hidden border border-black/10 dark:border-white/10 backdrop-blur-sm bg-white/70 dark:bg-gray-900/60">
+      {/* Toggle Switch in top-right */}
+      <div className="absolute top-4 right-4 flex items-center space-x-2">
+        <Switch
+          id={`status-${service.id}`}
+          className="z-10"
+          checked={!isDraft}
+          onCheckedChange={(checked) => setIsDraft(!checked)}
+        />
+        <label
+          htmlFor={`status-${service.id}`}
+          className="text-sm text-gray-700 dark:text-gray-300"
+        >
+          {isDraft ? "Draft" : "Active"}
+        </label>
+      </div>
+
       {/* Background with gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/0 dark:from-white/10 dark:to-white/5" />
 
@@ -69,4 +80,4 @@ const ServiceCard = ({ service }) => {
   );
 };
 
-export default ServiceCard;
+export default ServicesCardInDashboard;
