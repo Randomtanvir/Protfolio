@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Dancing_Script } from "next/font/google";
 import Image from "next/image";
 import React from "react";
@@ -15,7 +15,7 @@ const Perfil = () => {
   const socialLinks = [
     { name: "github", url: "#" },
     { name: "linkedin", url: "#" },
-    { name: "twitter", url: "#" }
+    { name: "twitter", url: "#" },
   ];
 
   return (
@@ -25,7 +25,10 @@ const Perfil = () => {
       transition={{ duration: 0.6 }}
       className="relative lg:col-span-1 lg:col-start-2 lg:row-span-2 lg:row-start-1"
     >
-      <div className="relative bg-white/40 dark:bg-gray-800/40 backdrop-blur-xl rounded-3xl p-8 border border-white/20 dark:border-gray-700/20 h-full">
+      <div
+        className="relative bg-white/40 dark:bg-gray-800/40 backdrop-blur-xl rounded-3xl p-8 border border-white/20 dark:border-gray-700/20
+                min-h-[600px] lg:min-h-[700px] xl:h-full"
+      >
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -62,7 +65,9 @@ const Perfil = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-center"
             >
-              <h2 className={`${DancingFont.className} text-3xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-800 dark:from-white dark:via-gray-200 dark:to-gray-300 bg-clip-text text-transparent mb-2`}>
+              <h2
+                className={`${DancingFont.className} text-3xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-800 dark:from-white dark:via-gray-200 dark:to-gray-300 bg-clip-text text-transparent mb-2`}
+              >
                 Tanvir Ahmad
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
@@ -85,38 +90,38 @@ const Perfil = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  transition={{ 
-                    duration: 0.3, 
+                  transition={{
+                    duration: 0.3,
                     delay: 0.6 + index * 0.1,
                     type: "spring",
                     stiffness: 300,
-                    damping: 15
+                    damping: 15,
                   }}
                   className="group relative"
                 >
                   {/* Glow Effect */}
-                  <motion.div 
+                  <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-indigo-500/20 rounded-full blur-xl"
                     initial={{ opacity: 0, scale: 0.8 }}
-                    whileHover={{ 
-                      opacity: 1, 
+                    whileHover={{
+                      opacity: 1,
                       scale: 1.2,
-                      rotate: 180
+                      rotate: 180,
                     }}
                     transition={{
                       duration: 0.6,
                       type: "spring",
                       stiffness: 200,
-                      damping: 10
+                      damping: 10,
                     }}
                   />
 
                   {/* Icon Container */}
-                  <motion.div 
+                  <motion.div
                     className="relative w-12 h-12 rounded-full bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm flex items-center justify-center border-2 border-white/20 dark:border-gray-700/20 overflow-hidden"
                     whileHover={{
                       borderColor: "rgba(59, 130, 246, 0.5)",
-                      boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)"
+                      boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)",
                     }}
                     transition={{ duration: 0.2 }}
                   >
@@ -129,20 +134,20 @@ const Perfil = () => {
                       transition={{
                         duration: 5,
                         repeat: Infinity,
-                        ease: "linear"
+                        ease: "linear",
                       }}
                     />
 
                     {/* Icon */}
                     <motion.div
-                      whileHover={{ 
+                      whileHover={{
                         scale: 1.2,
-                        rotate: 360
+                        rotate: 360,
                       }}
                       transition={{
                         type: "spring",
                         stiffness: 300,
-                        damping: 10
+                        damping: 10,
                       }}
                     >
                       <Image
