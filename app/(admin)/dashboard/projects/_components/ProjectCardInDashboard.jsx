@@ -2,12 +2,7 @@ import { Pencil, RefreshCcw, Trash2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-const ProjectCardInDashboard = ({
-  project,
-  onEdit,
-  onDelete,
-  onToggleStatus,
-}) => {
+const ProjectCardInDashboard = ({ project, onEdit }) => {
   return (
     <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition relative">
       {/* Image */}
@@ -68,22 +63,22 @@ const ProjectCardInDashboard = ({
 
         {/* Links */}
         <div className="flex space-x-4 pt-2">
-          <a
+          <Link
             href={project.liveLink}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 hover:underline text-sm"
           >
             Live Demo
-          </a>
-          <a
+          </Link>
+          <Link
             href={project.sourceCode}
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 hover:underline text-sm"
           >
             Source Code
-          </a>
+          </Link>
         </div>
 
         {/* Action Buttons */}
@@ -96,14 +91,14 @@ const ProjectCardInDashboard = ({
             <span>Edit</span>
           </button>
           <button
-            onClick={() => onDelete(project)}
+            onClick={() => console.log("project to delete:")}
             className="flex items-center space-x-1 text-sm text-red-600 hover:text-red-800"
           >
             <Trash2 size={16} />
             <span>Delete</span>
           </button>
           <button
-            onClick={() => onToggleStatus(project)}
+            onClick={() => console.log("project to toggle status:")}
             className="flex items-center space-x-1 text-sm text-gray-600 hover:text-gray-800"
           >
             <RefreshCcw size={16} />

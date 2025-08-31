@@ -12,7 +12,7 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 
-const CreateProjectForm = () => {
+const CreateProjectForm = ({ isEdit, project }) => {
   const {
     register,
     handleSubmit,
@@ -21,7 +21,7 @@ const CreateProjectForm = () => {
     reset,
     formState: { errors, isSubmitting },
   } = useForm({
-    defaultValues: {
+    defaultValues: project || {
       title: "",
       description: "",
       progress: 0,

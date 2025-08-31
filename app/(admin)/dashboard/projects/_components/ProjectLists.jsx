@@ -1,14 +1,13 @@
 "use client";
 
 import { AnimatePresence } from "framer-motion";
-import ProjectForm from "./CreateProjectForm";
 import { motion } from "framer-motion";
-import { Pencil, Trash2, RefreshCcw } from "lucide-react";
 import ProjectCardInDashboard from "./ProjectCardInDashboard";
 
-const ProjectLists = () => {
+const ProjectLists = ({ isEdit, setIsEdit, setProject }) => {
   const projects = [
     {
+      id: 1,
       title: "Portfolio Website",
       description:
         "A personal portfolio showcasing my skills, projects, and experiences with modern UI design.",
@@ -24,6 +23,7 @@ const ProjectLists = () => {
       image: "https://via.placeholder.com/600x400?text=Portfolio+Website",
     },
     {
+      id: 2,
       title: "E-Commerce Store",
       description:
         "A full-featured e-commerce platform with product listings, shopping cart, and Stripe payments.",
@@ -39,6 +39,7 @@ const ProjectLists = () => {
       image: "https://via.placeholder.com/600x400?text=E-commerce+Store",
     },
     {
+      id: 3,
       title: "Task Management App",
       description:
         "A Kanban-style task manager with drag-and-drop, team collaboration, and progress tracking.",
@@ -54,7 +55,11 @@ const ProjectLists = () => {
       image: "https://via.placeholder.com/600x400?text=Task+Management+App",
     },
   ];
-
+  const handelEdit = (project) => {
+    console.log("project to edit:", project);
+    setProject(project);
+    setIsEdit(true);
+  };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
       <AnimatePresence>
@@ -66,7 +71,7 @@ const ProjectLists = () => {
             exit={{ opacity: 0, scale: 0.95 }}
             className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden"
           >
-            <ProjectCardInDashboard project={project} />
+            <ProjectCardInDashboard project={project} onEdit={handelEdit} />
           </motion.div>
         ))}
       </AnimatePresence>

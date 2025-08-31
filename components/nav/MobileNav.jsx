@@ -10,6 +10,7 @@ import {
 import React from "react";
 import A from "./A";
 import ThemeToggle from "../theme/ThemeToggle";
+import { LockKeyhole } from "lucide-react";
 
 const MobileNav = () => {
   return (
@@ -17,7 +18,7 @@ const MobileNav = () => {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed bottom-4 left-1/2 -translate-x-1/2 flex gap-4 dark:bg-white/10 bg-black/40 backdrop-blur-[5px] border border-white/20 z-50 p-3 rounded-xl md:hidden overflow-hidden"
+      className="fixed bottom-4 left-1/2 -translate-x-1/2 flex gap-2 dark:bg-white/10 bg-black/40 backdrop-blur-[5px] border border-white/20 z-50 p-3 rounded-xl md:hidden overflow-hidden"
     >
       <A href="/" title="Home">
         <HomeIcon className="size-6" />
@@ -33,6 +34,9 @@ const MobileNav = () => {
       </A>
       <A title="Contact" href="/contact">
         <MessageIcon className="size-6" />
+      </A>
+      <A title="Admin-Login" href="/admin-login">
+        <LockKeyhole className="size-6" />
       </A>
       <ThemeToggle />
     </motion.div>

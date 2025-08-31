@@ -10,11 +10,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 import CreateProjectForm from "./CreateProjectForm";
-import ServicesForm from "../../services/_components/ServicesAddedForm";
 
-const ProjectHeader = () => {
+const ProjectHeader = ({ isEdit, setIsEdit, project, setProject }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -30,29 +28,30 @@ const ProjectHeader = () => {
         </p>
       </div>
 
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center space-x-2">
-            <CopyPlus />
-            <span>Add New Project</span>
-          </Button>
-        </DialogTrigger>
+      {/* Controlled Dialog */}
+      <Dialog open={isEdit} onOpenChange={setIsEdit}>
+        {!isEdit && (
+          <DialogTrigger asChild>
+            <Button className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center space-x-2">
+              <CopyPlus />
+              <span>Add New Project</span>
+            </Button>
+          </DialogTrigger>
+        )}
 
-        {/* Full screen modal */}
-        <DialogContent
-          className="w-full sm:min-w-4xl rounded-none 
-               bg-white dark:bg-gray-800 p-6 lg:p-10 "
-        >
+        <DialogContent className="w-full sm:min-w-4xl rounded-none bg-white dark:bg-gray-800 p-6 lg:p-10">
           <DialogHeader className="text-center lg:text-left">
             <DialogTitle className="text-2xl lg:text-3xl font-bold">
-              Add a New Project
+              {isEdit ? "Edit Project" : "Add a New Project"}
             </DialogTitle>
             <DialogDescription className="text-gray-600 dark:text-gray-400 mt-1">
-              Fill in the details below to create a new Project.
+              {isEdit
+                ? "Update the project details below."
+                : "Fill in the details below to create a new Project."}
             </DialogDescription>
           </DialogHeader>
 
-          <CreateProjectForm />
+          <CreateProjectForm isEdit={isEdit} project={project} />
         </DialogContent>
       </Dialog>
     </motion.div>
