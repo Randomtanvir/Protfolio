@@ -42,7 +42,8 @@ const DashboardPage = () => {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-sm sm:text-base text-gray-600 dark:text-gray-300"
               >
-                Welcome back! Here's what's happening with your portfolio.
+                Welcome back! Here&apos;s what&apos;s happening with your
+                portfolio.
               </motion.p>
             </div>
 
