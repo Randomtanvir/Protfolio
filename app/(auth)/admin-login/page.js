@@ -32,7 +32,7 @@ export default function LoginPage() {
           {/* Right Side - Illustration */}
           <div className="w-full md:w-1/2 flex items-center justify-center px-6 py-10 bg-white dark:bg-[#040B19] transition-colors">
             <Image
-              src="/img/login_vector.png"
+              src="/img/login_vector.jpg"
               alt="Login illustration"
               width={600}
               height={600}
