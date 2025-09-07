@@ -1,17 +1,30 @@
 import Image from "next/image";
-import LoginForm from "./_components/LoginForm";
+import SingUp from "./_components/SingUp";
+import { ChevronLeft } from "lucide-react";
+import BackButton from "./_components/BackButton";
 
-export default function LoginPage() {
+export default function SignUpPage() {
   return (
     <main className="bg-white dark:bg-[#040B19]">
+      <BackButton />
       <div className="container mx-auto">
         <div className="min-h-screen flex flex-col md:flex-row">
+          {/* Right Side - Illustration */}
+          <div className="w-full md:w-1/2 flex items-center justify-center px-6 py-10 bg-white dark:bg-[#040B19] transition-colors">
+            <Image
+              src="/img/sign-up.svg"
+              alt="Login illustration"
+              width={600}
+              height={600}
+              className="max-w-full h-auto rounded-2xl"
+            />
+          </div>
           {/* Left Side - Form */}
           <div className="w-full md:w-1/2 flex flex-col justify-center px-6 sm:px-10 lg:px-20 py-10 bg-white dark:bg-[#040B19] transition-colors duration-300">
             {/* Logo */}
             <div className="mb-8 text-center md:text-left">
               <h1 className="text-2xl font-bold text-purple-700 dark:text-purple-400">
-                Admin Login
+                Create New Admin
               </h1>
             </div>
 
@@ -22,30 +35,11 @@ export default function LoginPage() {
               Please enter your details
             </p>
 
-            <LoginForm />
+            <SingUp />
 
             <p className="text-sm text-gray-600 dark:text-gray-400 mt-6 text-center md:text-left">
               Login to the admin panel and customize your information.
             </p>
-          </div>
-
-          {/* Right Side - Illustration */}
-          <div className="w-full md:w-1/2 flex items-center justify-center px-6 py-10 bg-white dark:bg-[#040B19] transition-colors">
-            <Image
-              src="/img/login_vector.jpg"
-              alt="Login illustration"
-              width={600}
-              height={600}
-              className="max-w-full h-auto hidden dark:block rounded-2xl"
-            />
-
-            <img
-              src="https://assets-v2.lottiefiles.com/a/7635dd88-116a-11ee-b318-ffcf40e06a51/3b8KwGTSsy.gif"
-              alt="Login Illustration"
-              width={600}
-              height={600}
-              className="dark:hidden"
-            />
           </div>
         </div>
       </div>
