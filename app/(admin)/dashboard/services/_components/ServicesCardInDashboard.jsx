@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import { Switch } from "@/components/ui/switch";
 import { motion } from "framer-motion";
+import { Pencil, Trash2 } from "lucide-react";
 
-const ServicesCardInDashboard = ({ service }) => {
+const ServicesCardInDashboard = ({ service, onEdit, onDelete }) => {
   const [isDraft, setIsDraft] = useState(service?.status === "draft");
 
   return (
@@ -62,7 +63,7 @@ const ServicesCardInDashboard = ({ service }) => {
         </p>
 
         {/* Skills Tags */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mb-6">
           {service.skills.map((skill, index) => (
             <span
               key={index}
@@ -71,6 +72,33 @@ const ServicesCardInDashboard = ({ service }) => {
               {skill}
             </span>
           ))}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex justify-between items-center">
+          {/* Edit Button */}
+          <button
+            onClick={onEdit}
+            className="flex items-center justify-center w-11 h-11 rounded-full 
+             bg-yellow-500/20 hover:bg-yellow-600/30
+             text-white shadow-md transition-transform duration-200 
+             hover:scale-110 active:scale-95 z-20"
+          >
+            <Pencil className="w-5 h-5" />
+          </button>
+
+          {/* Delete Button */}
+          <button
+            onClick={onDelete}
+            className="flex items-center justify-center w-11 h-11 rounded-full 
+             bg-red-500/20 hover:bg-red-500/30 
+             text-red-600 dark:text-red-400 
+             shadow-md backdrop-blur-md border border-red-500/30 
+             transition-transform duration-200 
+             hover:scale-110 active:scale-95 z-20"
+          >
+            <Trash2 className="w-5 h-5" />
+          </button>
         </div>
       </motion.div>
 

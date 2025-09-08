@@ -18,6 +18,12 @@ const ServiceContentForm = ({ onSubmit, defaultValues }) => {
     },
   });
 
+  const onFormSubmit = (data) => {
+    console.log("Form Data Submitted: ", data);
+    // You can add your submission logic here
+    setIsEdit(false); // Disable edit mode after submission
+  };
+
   return (
     <div className="w-full max-w-2xl mx-auto bg-white dark:bg-gray-900/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-black/10 dark:border-white/10 shadow-lg">
       {/* Header with edit button */}
@@ -34,7 +40,7 @@ const ServiceContentForm = ({ onSubmit, defaultValues }) => {
         </button>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
         {/* Title */}
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">

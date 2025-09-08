@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { User, Mail, Camera, Save } from "lucide-react";
+import { User, Mail, Camera, Save, FileText } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 const ProfileChangeForm = () => {
@@ -18,10 +18,12 @@ const ProfileChangeForm = () => {
       email: "john.doe@example.com",
       profileImage:
         "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      resume: null,
     },
   });
 
   const profileImage = watch("profileImage");
+  const resumeFile = watch("resume");
 
   const onProfileSubmit = async (data) => {
     console.log("Submitted:", data);
@@ -134,6 +136,51 @@ const ProfileChangeForm = () => {
             {errors.email && (
               <p className="text-red-500 dark:text-red-400 text-sm mt-1">
                 {errors.email.message}
+              </p>
+            )}
+          </div>
+
+          {/* Resume Upload */}
+          <div>
+            <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
+              Upload Resume (PDF)
+            </label>
+
+            <label
+              htmlFor="resume-upload"
+              className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed 
+              border-gray-300 dark:border-white/20 rounded-xl cursor-pointer 
+              hover:border-blue-500 hover:bg-blue-50/50 dark:hover:bg-white/5 
+              transition-all duration-300 group"
+            >
+              <FileText className="w-10 h-10 text-gray-400 group-hover:text-blue-500 mb-2" />
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                Drag & drop your resume here, or{" "}
+                <span className="text-blue-600 dark:text-blue-400 font-semibold">
+                  browse
+                </span>
+              </span>
+              <input
+                id="resume-upload"
+                type="file"
+                accept="application/pdf"
+                {...register("resume", { required: "Resume is required" })}
+                className="hidden"
+              />
+            </label>
+
+            {/* Error Message */}
+            {errors.resume && (
+              <p className="text-red-500 dark:text-red-400 text-sm mt-2">
+                {errors.resume.message}
+              </p>
+            )}
+
+            {/* Preview file name */}
+            {resumeFile && resumeFile.length > 0 && (
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                ✅ Selected:{" "}
+                <span className="font-medium">{resumeFile[0]?.name}</span>
               </p>
             )}
           </div>
