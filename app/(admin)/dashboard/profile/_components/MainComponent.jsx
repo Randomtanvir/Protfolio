@@ -9,7 +9,9 @@ import PersonalInfoForm from "./PersonalInfoForm";
 import SkillsForm from "./SkillsForm";
 import AboutMeForm from "./AboutMeForm";
 import SocialLinksForm from "./SocialLinksForm";
-const MainComponent = () => {
+import toast from "react-hot-toast";
+const MainComponent = ({ profile }) => {
+  const [loading, setLoading] = useState(false);
   const [heroImg, setHeroImg] = useState(null);
   const fileInputRef = useRef(null);
 
@@ -24,24 +26,27 @@ const MainComponent = () => {
       reader.readAsDataURL(file);
     }
 
+    setLoading(true);
     // 👉 Create FormData to send to API
     const formData = new FormData();
     formData.append("heroImg", file);
 
     try {
       const res = await fetch("/api/profile", {
-        method: "POST",
+        method: "PATCH",
         body: formData,
       });
-
-      const data = await res.json();
-      if (data.success) {
-        console.log("✅ Saved in DB:", data.data);
+      const result = await res.json(); // ✅ parse JSON from stream
+      if (result.success) {
+        toast.success(result.message);
+        console.log("✅ Saved in DB:", result.data);
       } else {
-        console.error("❌ API Error:", data.message);
+        toast.error(result.message || "Failed to update bio");
       }
-    } catch (err) {
-      console.error("❌ Upload failed:", err);
+    } catch (error) {
+      console.log("bio-error :", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -70,7 +75,10 @@ const MainComponent = () => {
               {/* Upload Button */}
               <Button
                 variant="outline"
-                className="w-full sm:w-auto flex items-center justify-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                className={`${loading ? "bg-gray-500" : "bg-green-500"}
+                ${
+                  loading ? "hover:bg-gray-500" : "hover:bg-green-600"
+                } w-full sm:w-auto flex items-center justify-center gap-2 `}
                 onClick={() => fileInputRef.current.click()} // 👈 trigger file picker
               >
                 <ImageUploadIcon />
@@ -96,10 +104,10 @@ const MainComponent = () => {
                 className="lg:col-span-4 space-y-4 sm:space-y-6"
               >
                 {/* Personal Info Card */}
-                <PersonalInfoForm />
+                <PersonalInfoForm profile={profile} />
 
                 {/* Availability Card */}
-                <SkillsForm />
+                <SkillsForm profile={profile} />
               </motion.div>
 
               {/* Right Column - Bio, Social Links and HeroImg */}
@@ -113,7 +121,7 @@ const MainComponent = () => {
                   <div className="relative mx-auto w-32 h-32 sm:w-96 sm:h-96 group">
                     <div className="relative w-full h-full overflow-hidden ">
                       <Image
-                        src={heroImg || "/default-HeroImg.png"}
+                        src={heroImg || profile?.heroImg || "/default-hero.jpg"}
                         alt="Profile"
                         className="object-cover"
                         fill
@@ -124,10 +132,10 @@ const MainComponent = () => {
                 </div>
 
                 {/* Bio Card */}
-                <AboutMeForm />
+                <AboutMeForm profile={profile} />
 
                 {/* Social Links */}
-                <SocialLinksForm />
+                <SocialLinksForm profile={profile} />
               </motion.div>
             </div>
           </div>

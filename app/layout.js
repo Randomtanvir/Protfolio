@@ -1,6 +1,7 @@
 import "./globals.css";
 import Navbar from "@/components/nav/Navbar";
 import ThemeProvider from "@/provider/ThemeProvider";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "Tanvir's Portfolio",
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
             <Navbar />
             <main className="flex-grow">{children}</main>
           </div>
+          <Toaster position="top-center" reverseOrder={false} />
         </body>
       </ThemeProvider>
     </html>

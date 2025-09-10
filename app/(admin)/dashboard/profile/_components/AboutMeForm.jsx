@@ -1,17 +1,42 @@
 "use client";
 
-import React from "react";
+import { Pocket, Save } from "lucide-react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
-const AboutMeForm = () => {
+const AboutMeForm = ({ profile }) => {
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      bio: "Passionate full-stack developer with expertise in React, Next.js, and Node.js. Love building beautiful and functional web applications.",
+      bio:
+        profile?.bio ||
+        "Passionate developer with a knack for creating dynamic web applications.",
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("Bio Submitted:", data);
+  const onSubmit = async (data) => {
+    setLoading(true);
+    // 👉 Create FormData to send to API
+    const formData = new FormData();
+    formData.append("bio", data.bio);
+
+    try {
+      const res = await fetch("/api/profile", {
+        method: "PATCH",
+        body: formData,
+      });
+      const result = await res.json(); // ✅ parse JSON from stream
+      if (result.success) {
+        toast.success(result.message);
+      } else {
+        toast.error(result.message || "Failed to update bio");
+      }
+    } catch (error) {
+      console.log("bio-error :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -32,9 +57,15 @@ const AboutMeForm = () => {
       <div className="mt-4">
         <button
           type="submit"
-          className="px-4 py-2 text-sm rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+          disabled={loading}
+          className={`px-4 py-2 flex gap-2 items-center text-sm rounded-sm font-medium ${
+            loading ? "bg-gray-500" : "bg-[#6e46ffd0]"
+          } ${
+            loading ? "hover:bg-gray-500" : "hover:bg-[#6e46ff]"
+          } text-white hover:text-gray-200 cursor-pointer transition-all`}
         >
           Save
+          <Save size={16} />
         </button>
       </div>
     </form>

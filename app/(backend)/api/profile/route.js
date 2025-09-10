@@ -3,17 +3,34 @@ import { PersonalInfo } from "@/models/personalInfo";
 import { uploadToCloudinary } from "@/utils/cloudinary";
 import connectMongo from "@/db/db";
 
-export async function POST(request) {
+export async function PATCH(request) {
   await connectMongo();
 
   try {
     const formData = await request.formData();
     const body = {};
 
-    // Extract fields
+    // Extract text fields (ignore heroImg here)
     for (const [key, value] of formData.entries()) {
-      if (key === "heroImg") continue; // handle file separately
+      if (key === "heroImg") continue;
       body[key] = value;
+    }
+
+    // Parse socialLinks if sent
+    if (body.socialLinks) {
+      try {
+        body.socialLinks = JSON.parse(body.socialLinks);
+      } catch (err) {
+        console.warn("Failed to parse socialLinks:", err);
+      }
+    }
+    // Parse skills if sent
+    if (body.skills) {
+      try {
+        body.skills = JSON.parse(body.skills);
+      } catch (err) {
+        console.warn("Failed to parse skills:", err);
+      }
     }
 
     // Handle image upload
@@ -26,12 +43,19 @@ export async function POST(request) {
       body.heroImg = uploadedUrl;
     }
 
-    // Save to MongoDB
-    const newPersonalInfo = new PersonalInfo(body);
-    const savedData = await newPersonalInfo.save();
+    // Save to MongoDB (upsert = create if not exists)
+    const newPersonalInfo = await PersonalInfo.findOneAndUpdate(
+      {},
+      { $set: body },
+      { new: true, upsert: true }
+    );
 
     return NextResponse.json(
-      { success: true, data: savedData },
+      {
+        success: true,
+        message: "Profile updated successfully",
+        data: newPersonalInfo,
+      },
       { status: 201 }
     );
   } catch (error) {
@@ -43,26 +67,18 @@ export async function POST(request) {
   }
 }
 
-// export async function PATCH(request) {
-//   try {
-//     const body = await request.json();
-//     const { id, ...updateFields } = body;
-
-//     if (!id) {
-//       return NextResponse.json({ success: false, message: "ID is required" }, { status: 400 });
-//     }
-
-//     const updatedData = await PersonalInfo.findByIdAndUpdate(id, updateFields, {
-//       new: true, // return the updated document
-//     });
-
-//     if (!updatedData) {
-//       return NextResponse.json({ success: false, message: "PersonalInfo not found" }, { status: 404 });
-//     }
-
-//     return NextResponse.json({ success: true, data: updatedData }, { status: 200 });
-//   } catch (error) {
-//     console.error(error);
-//     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
-//   }
-// }
+export const GET = async () => {
+  await connectMongo();
+  try {
+    const personalInfo = await PersonalInfo.findOne({});
+    return NextResponse.json(
+      { success: true, data: personalInfo },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
+};

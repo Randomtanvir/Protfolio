@@ -1,20 +1,23 @@
 "use client";
 
+import { Save } from "lucide-react";
 import React from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
-const PersonalInfoForm = () => {
+const PersonalInfoForm = ({ profile }) => {
+  const [loading, setLoading] = React.useState(false);
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      fullName: "Tanvir Ahmad",
-      profession: "Web Developer",
-      stack: "Full Stack Developer",
-      stackBio: "Specialized in React & Next.js",
-      extraRole: "UI/UX Designer",
-      extraBio: "Creating engaging interfaces",
-      experienceYears: 5,
-      completeProjects: 20,
-      companiesWorked: 3,
+      fullName: profile?.fullName || "",
+      profession: profile?.profession || "",
+      stack: profile?.stack || "",
+      stackBio: profile?.stackBio || "",
+      extraRole: profile?.extraRole || "",
+      extraBio: profile?.extraBio || "",
+      experienceYears: profile?.experienceYears || 0,
+      completeProjects: profile?.completeProjects || 0,
+      companiesWorked: profile?.companiesWorked || 0,
     },
   });
 
@@ -30,8 +33,37 @@ const PersonalInfoForm = () => {
     { label: "Companies Worked At", name: "companiesWorked", type: "number" },
   ];
 
-  const onSubmit = (data) => {
-    console.log("Personal Info Submitted:", data);
+  const onSubmit = async (data) => {
+    setLoading(true);
+    // 👉 Create FormData to send to API
+    const formData = new FormData();
+    formData.append("fullName", data.fullName);
+    formData.append("profession", data.profession);
+    formData.append("stack", data.stack);
+    formData.append("stackBio", data.stackBio);
+    formData.append("extraRole", data.extraRole);
+    formData.append("extraBio", data.extraBio);
+    formData.append("experienceYears", data.experienceYears);
+    formData.append("completeProjects", data.completeProjects);
+    formData.append("companiesWorked", data.companiesWorked);
+
+    try {
+      const res = await fetch("/api/profile", {
+        method: "PATCH",
+        body: formData,
+      });
+      const result = await res.json(); // ✅ parse JSON from stream
+      if (result.success) {
+        toast.success(result.message);
+        console.log("✅ Saved in DB:", result.data);
+      } else {
+        toast.error(result.message || "Failed to update bio");
+      }
+    } catch (error) {
+      console.log("bio-error :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -63,9 +95,15 @@ const PersonalInfoForm = () => {
       <div className="mt-4">
         <button
           type="submit"
-          className="px-4 py-2 text-sm rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+          disabled={loading}
+          className={`px-4 py-2 flex gap-2 items-center text-sm rounded-sm font-medium ${
+            loading ? "bg-gray-500" : "bg-[#6e46ffd0]"
+          } ${
+            loading ? "hover:bg-gray-500" : "hover:bg-[#6e46ff]"
+          } text-white hover:text-gray-200 cursor-pointer transition-all`}
         >
           Save
+          <Save size={16} />
         </button>
       </div>
     </form>
