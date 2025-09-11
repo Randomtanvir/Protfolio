@@ -40,7 +40,7 @@ const Perfil = () => {
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative w-60 h-60 mb-auto group"
+            className="relative md:w-80 sm:w-80 sm:h-[440px] lg:w-[380px] w-60 lg:h-[520px]  h-90 mb-auto group"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-indigo-500/20 rounded-full blur-2xl" />
             <div className="relative overflow-hidden rounded-full border-4 border-white/20 dark:border-gray-700/20 shadow-lg group-hover:border-blue-500/30 dark:group-hover:border-blue-400/30 transition-colors duration-300">
@@ -48,8 +48,8 @@ const Perfil = () => {
               <Image
                 src={Tanvir_img}
                 alt="Tanvir Ahmad"
-                width={240}
-                height={240}
+                width={400}
+                height={400}
                 className="object-cover transform transition-all duration-700 scale-110 group-hover:scale-125"
                 priority
               />
