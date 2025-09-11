@@ -2,7 +2,7 @@ export const getProfileInfo = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile`, {
       method: "GET",
-      cache: "no-store", // Ensure fresh data
+      revalidate: 10, // revalidate every 10 seconds
     });
     const result = await res.json();
     if (result.success) {

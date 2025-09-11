@@ -1,25 +1,52 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import React from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
-const AboutInfoForm = ({ defaultValues }) => {
+const AboutInfoForm = ({ aboutInfo }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
-    defaultValues: defaultValues || {
-      fullName: "Hi, I'm Tanvir Ahmad",
-      bio: "A passionate web developer and designer with a keen eye for creating beautiful, functional, and user-centered digital experiences. With a background in both design and development, I bridge the gap between aesthetics and functionality.",
-      experience: "3+ years of web development",
-      education: "B.Sc in Computer Science",
-      location: "Dhaka, Bangladesh",
+    defaultValues: {
+      fullName: aboutInfo?.fullName || "John Doe",
+      bio:
+        aboutInfo?.bio ||
+        "A passionate developer with a knack for creating elegant solutions.",
+      experience: aboutInfo?.experience || "",
+      education: aboutInfo?.education || "",
+      location: aboutInfo?.location || "",
     },
   });
 
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
+
+    try {
+      const response = await fetch("/api/about", {
+        method: "PATCH",
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        toast.success(result.message || "Profile updated successfully");
+      } else {
+        toast.error(result.message || "Failed to update profile");
+      }
+    } catch (error) {
+      console.log(error.message || "Something went wrong in about form");
+    }
+  };
+
   return (
     <form
-      onSubmit={handleSubmit((data) => console.log("Form Submitted:", data))}
+      onSubmit={handleSubmit(onSubmit)}
       className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6"
     >
       {/* Full Name */}
@@ -117,14 +144,21 @@ const AboutInfoForm = ({ defaultValues }) => {
       </div>
 
       {/* Submit */}
-      <div className="flex justify-center">
-        <button
+      <div className="flex mt-4 justify-center">
+        <Button
           type="submit"
-          className="px-6 py-2 mt-8 rounded-lg bg-blue-600 hover:bg-blue-700 
-                     text-white font-medium transition-all duration-200 shadow-md"
+          disabled={isSubmitting}
+          className="px-6 rounded-sm bg-[#6e46ffd0] hover:bg-[#6e46ff] text-white"
         >
-          Save Profile
-        </button>
+          {isSubmitting ? (
+            <div className="flex items-center space-x-2">
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <span>Saving...</span>
+            </div>
+          ) : (
+            "➤ Save Profile"
+          )}
+        </Button>
       </div>
     </form>
   );

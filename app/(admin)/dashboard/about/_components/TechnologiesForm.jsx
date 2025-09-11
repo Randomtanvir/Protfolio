@@ -1,9 +1,10 @@
 "use client";
-
+import React from "react";
+import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { useForm, useFieldArray } from "react-hook-form";
 
-const TechnologiesForm = () => {
+const TechnologiesForm = ({ aboutInfo }) => {
   const {
     register,
     handleSubmit,
@@ -13,8 +14,8 @@ const TechnologiesForm = () => {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      technology: "",
-      skillsIcons: [{ url: "" }], // dynamic array
+      technology: aboutInfo?.technology || "",
+      skillsIcons: aboutInfo?.skillsIcons || [{ url: "" }],
     },
   });
 
@@ -24,12 +25,26 @@ const TechnologiesForm = () => {
   });
 
   const onSubmit = async (data) => {
+    const formData = new FormData();
+
+    // Handle complex fields first
+    formData.append("technology", data.technology);
+    formData.append("skillsIcons", JSON.stringify(data.skillsIcons));
+
     try {
-      console.log("Form submitted:", data);
-      alert("✅ Service added successfully!");
-      reset();
+      const response = await fetch("/api/about", {
+        method: "PATCH",
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        toast.success(result.message || "Profile updated successfully");
+      } else {
+        toast.error(result.message || "Failed to update profile");
+      }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.log(error.message || "Something went wrong in about form");
     }
   };
 
@@ -116,6 +131,7 @@ const TechnologiesForm = () => {
             <div key={field.id} className="flex items-center gap-3">
               <input
                 {...register(`skillsIcons.${index}.url`, {
+                  required: "This field is required",
                   pattern: {
                     value: /^https?:\/\/.+\.(jpg|jpeg|png|gif|svg|webp)$/i,
                     message: "Please enter a valid image URL",
@@ -161,20 +177,11 @@ const TechnologiesForm = () => {
         </div>
 
         {/* Submit Buttons */}
-        <div className="flex flex-col sm:flex-row justify-end gap-3 pt-6 border-t dark:border-gray-700">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => reset()}
-            disabled={isSubmitting}
-            className="px-6"
-          >
-            Reset
-          </Button>
+        <div className="flex justify-center">
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="px-6 bg-blue-600 hover:bg-blue-700 text-white"
+            className="px-6 rounded-sm bg-[#6e46ffd0] hover:bg-[#6e46ff] text-white"
           >
             {isSubmitting ? (
               <div className="flex items-center space-x-2">
@@ -182,7 +189,7 @@ const TechnologiesForm = () => {
                 <span>Saving...</span>
               </div>
             ) : (
-              "Save Service"
+              " ✔ Save Service"
             )}
           </Button>
         </div>

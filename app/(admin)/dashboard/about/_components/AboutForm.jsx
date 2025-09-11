@@ -1,9 +1,15 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import React from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 const AboutForm = () => {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
     defaultValues: {
       title: "ABOUT ME",
       headLine: "Creative Developer & Designer",
@@ -15,8 +21,27 @@ const AboutForm = () => {
     { label: "Head Line", name: "headLine", type: "text" },
   ];
 
-  const onSubmit = (data) => {
-    console.log("Personal Info Submitted:", data);
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
+    // Handle form submission, e.g., send data to backend
+    try {
+      const response = await fetch("/api/about", {
+        method: "PATCH",
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        toast.success(result.message || "Profile updated successfully");
+      } else {
+        toast.error(result.message || "Failed to update profile");
+      }
+    } catch (error) {
+      console.log(error.message || "Something went wrong in about form");
+    }
   };
 
   return (
@@ -36,22 +61,37 @@ const AboutForm = () => {
               {field.label}
             </label>
             <input
-              {...register(field.name, { required: true })}
+              {...register(field.name, {
+                required: `${field.label} is required`,
+              })}
               type={field.type}
               className="w-full px-3 py-2 text-gray-900 dark:text-white bg-transparent border rounded-lg border-gray-200 dark:border-gray-700 hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
               placeholder={`Enter your ${field.label.toLowerCase()}`}
             />
+            {errors[field.name] && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors[field.name].message}
+              </p>
+            )}
           </div>
         ))}
       </div>
 
       <div className="mt-4">
-        <button
+        <Button
           type="submit"
-          className="px-4 py-2 text-sm rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+          disabled={isSubmitting}
+          className="px-6 rounded-sm bg-[#6e46ffd0] hover:bg-[#6e46ff] text-white"
         >
-          Save
-        </button>
+          {isSubmitting ? (
+            <div className="flex items-center space-x-2">
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <span>Saving...</span>
+            </div>
+          ) : (
+            " ✔️  Save"
+          )}
+        </Button>
       </div>
     </form>
   );

@@ -1,22 +1,20 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { CirclePlus, Trash } from "lucide-react";
 import React from "react";
 import { useForm, useFieldArray } from "react-hook-form";
+import toast from "react-hot-toast";
 
-const SkillsForm = () => {
+const SkillsForm = ({ aboutInfo }) => {
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      skills: [
-        { name: "UI Design", percentage: 90, color: "#3b82f6" },
-        { name: "Product Design", percentage: 80, color: "#10b981" },
-        { name: "User Research", percentage: 85, color: "#f59e0b" },
-        { name: "Coding", percentage: 60, color: "#ef4444" },
-        { name: "No Code Tools", percentage: 65, color: "#8b5cf6" },
+      skills: aboutInfo?.skills || [
+        { name: "", percentage: "", color: "#000000" },
       ],
     },
   });
@@ -26,8 +24,25 @@ const SkillsForm = () => {
     name: "skills",
   });
 
-  const onSubmit = (data) => {
-    console.log("Skills Data:", data);
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    formData.append("skills", JSON.stringify(data.skills));
+
+    try {
+      const response = await fetch("/api/about", {
+        method: "PATCH",
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        toast.success(result.message || "Profile updated successfully");
+      } else {
+        toast.error(result.message || "Failed to update profile");
+      }
+    } catch (error) {
+      console.log(error.message || "Something went wrong in about form");
+    }
   };
 
   return (
@@ -121,13 +136,20 @@ const SkillsForm = () => {
 
       {/* Submit */}
       <div className="flex justify-center">
-        <button
+        <Button
           type="submit"
-          className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-700
-                     text-white font-medium transition-all duration-200 shadow-md"
+          disabled={isSubmitting}
+          className="px-6 rounded-sm bg-[#6e46ffd0] hover:bg-[#6e46ff] text-white"
         >
-          Save Skills
-        </button>
+          {isSubmitting ? (
+            <div className="flex items-center space-x-2">
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <span>Saving...</span>
+            </div>
+          ) : (
+            " ✔️  Save Skills"
+          )}
+        </Button>
       </div>
     </form>
   );
