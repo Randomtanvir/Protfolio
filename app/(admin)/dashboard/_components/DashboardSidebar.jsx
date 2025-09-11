@@ -87,7 +87,7 @@ const DashboardSidebar = () => {
           x: 0,
           opacity: 1,
         }}
-        className="fixed left-0 top-0 z-40 h-screen w-64 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border-r border-gray-200/10 hidden lg:block"
+        className="fixed left-0 top-0 z-40 h-screen w-64 bg-gray-100 dark:bg-gray-800/95 backdrop-blur-xl border-r border-gray-200/10 hidden lg:block"
       >
         {/* Logo Section */}
         <div className="flex h-16 items-center justify-center border-b border-gray-200/10">

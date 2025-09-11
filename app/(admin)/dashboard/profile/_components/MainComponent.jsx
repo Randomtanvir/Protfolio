@@ -51,7 +51,7 @@ const MainComponent = ({ profile }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-300 dark:bg-gray-900">
       <DashboardSidebar />
 
       <main className="min-h-screen w-full lg:pl-64 pb-8">
@@ -61,7 +61,7 @@ const MainComponent = ({ profile }) => {
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6"
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-gray-100 dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6"
             >
               <div className="w-full sm:w-auto mb-4 sm:mb-0">
                 <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white">
@@ -117,7 +117,7 @@ const MainComponent = ({ profile }) => {
                 className="lg:col-span-8 space-y-4 sm:space-y-6"
               >
                 {/* HeroImg Card */}
-                <div className="bg-white dark:bg-gray-800  rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <div className="bg-gray-100 dark:bg-gray-800  rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
                   <div className="relative mx-auto w-32 h-32 sm:w-96 sm:h-96 group">
                     <div className="relative w-full h-full overflow-hidden ">
                       <Image

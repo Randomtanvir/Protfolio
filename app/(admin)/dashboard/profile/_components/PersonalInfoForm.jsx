@@ -69,7 +69,7 @@ const PersonalInfoForm = ({ profile }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6"
+      className="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6"
     >
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
         Personal Information

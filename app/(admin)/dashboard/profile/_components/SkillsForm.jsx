@@ -45,7 +45,7 @@ const SkillsForm = ({ profile }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6 space-y-4"
+      className="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6 space-y-4"
     >
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
         Skills
