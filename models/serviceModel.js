@@ -25,22 +25,6 @@ const ServiceSchema = new mongoose.Schema(
       enum: ["active", "draft"],
       default: "draft",
     },
-
-    // ✅ New fields
-    title: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    description: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    highlightBio: {
-      type: String,
-      trim: true,
-    },
   },
   { timestamps: true }
 );

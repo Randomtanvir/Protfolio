@@ -1,121 +1,108 @@
-import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+"use client";
 
-const ServicesForm = () => {
-  const [formData, setFormData] = useState({
-    serviceName: "",
-    serviceBio: "",
-    technology: "",
-    serviceIconUrl: "",
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+
+const techOptions = [
+  "React",
+  "Vue.js",
+  "Angular",
+  "Node.js",
+  "Python",
+  "PHP",
+  "JavaScript",
+  "TypeScript",
+  "Next.js",
+  "Laravel",
+  "Django",
+  "Express",
+  "MongoDB",
+  "PostgreSQL",
+  "MySQL",
+  "AWS",
+  "Docker",
+  "Kubernetes",
+];
+
+const ServicesForm = ({
+  service,
+  isEdit,
+  setService,
+  setIsEdit,
+  setOpenServiceModal,
+}) => {
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: isEdit
+      ? {
+          serviceName: service?.serviceName || "",
+          serviceBio: service?.serviceBio || "",
+          serviceIconUrl: service?.serviceIconUrl || "",
+          technology: service?.technology || "",
+        }
+      : {
+          serviceName: "",
+          serviceBio: "",
+          serviceIconUrl: "",
+          technology: "",
+        },
   });
 
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const serviceName = watch("serviceName");
+  const serviceBio = watch("serviceBio");
+  const serviceIconUrl = watch("serviceIconUrl");
+  const technology = watch("technology");
 
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.serviceName.trim()) {
-      newErrors.serviceName = "Service name is required";
-    } else if (formData.serviceName.length < 3) {
-      newErrors.serviceName = "Service name must be at least 3 characters";
-    }
-
-    if (!formData.serviceBio.trim()) {
-      newErrors.serviceBio = "Service description is required";
-    } else if (formData.serviceBio.length < 20) {
-      newErrors.serviceBio = "Description must be at least 20 characters";
-    } else if (formData.serviceBio.length > 500) {
-      newErrors.serviceBio = "Description must not exceed 500 characters";
-    }
-
-    if (!formData.technology.trim()) {
-      newErrors.technology = "Technology stack is required";
-    }
-
-    if (
-      formData.serviceIconUrl &&
-      !/^https?:\/\/.+\.(jpg|jpeg|png|gif|svg|webp)$/i.test(
-        formData.serviceIconUrl
-      )
-    ) {
-      newErrors.serviceIconUrl = "Please enter a valid image URL";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
-    }
-  };
-
-  const handleSubmit = async () => {
-    if (!validateForm()) return;
-
-    setIsSubmitting(true);
+  const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("Form submitted:", formData);
-      alert("Service added successfully!");
-      handleReset();
+      const response = await fetch(
+        isEdit ? `/api/service/${service._id}` : "/api/service",
+        {
+          method: isEdit ? "PATCH" : "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const result = await response.json();
+      if (result.success) {
+        toast.success(result.message);
+        router.refresh();
+        reset();
+        setService({}); // reset after submit
+        setIsEdit(false); // close edit mode
+        setOpenServiceModal(false);
+      } else {
+        toast.error("Error: " + result.message);
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
-    } finally {
-      setIsSubmitting(false);
+      toast.error("An unexpected error occurred.");
     }
-  };
-
-  const handleReset = () => {
-    setFormData({
-      serviceName: "",
-      serviceBio: "",
-      technology: "",
-      serviceIconUrl: "",
-    });
-    setErrors({});
   };
 
   const addTechnology = (tech) => {
-    const technologies = formData.technology
-      ? formData.technology.split(", ")
-      : [];
-    if (!technologies.includes(tech)) {
-      const newValue =
-        technologies.length > 0 ? `${formData.technology}, ${tech}` : tech;
-      setFormData((prev) => ({ ...prev, technology: newValue }));
+    const techs = technology ? technology.split(", ") : [];
+    if (!techs.includes(tech)) {
+      const newValue = techs.length > 0 ? `${technology}, ${tech}` : tech;
+      setValue("technology", newValue);
     }
   };
 
-  const techOptions = [
-    "React",
-    "Vue.js",
-    "Angular",
-    "Node.js",
-    "Python",
-    "PHP",
-    "JavaScript",
-    "TypeScript",
-    "Next.js",
-    "Laravel",
-    "Django",
-    "Express",
-    "MongoDB",
-    "PostgreSQL",
-    "MySQL",
-    "AWS",
-    "Docker",
-    "Kubernetes",
-  ];
-
   return (
     <div className="w-full max-w-2xl mx-auto p-4 sm:p-6 bg-white dark:bg-gray-900 rounded-xl shadow-md sm:shadow-lg transition-colors">
-      <div className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Service Name */}
         <div className="space-y-2">
           <label
@@ -126,16 +113,22 @@ const ServicesForm = () => {
           </label>
           <input
             id="serviceName"
-            name="serviceName"
-            value={formData.serviceName}
-            onChange={handleInputChange}
-            className={`w-full px-4 py-2 sm:py-3 border rounded-lg text-sm sm:text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors dark:bg-gray-800 dark:text-white dark:border-gray-700 ${
-              errors.serviceName ? "border-red-500" : "border-gray-300"
-            }`}
+            {...register("serviceName", {
+              required: "Service name is required",
+              minLength: {
+                value: 3,
+                message: "Service name must be at least 3 characters",
+              },
+            })}
+            className={`w-full px-4 py-2 sm:py-3 border rounded-lg text-sm sm:text-base 
+              focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors 
+              dark:bg-gray-800 dark:text-white dark:border-gray-700 ${
+                errors.serviceName ? "border-red-500" : "border-gray-300"
+              }`}
             placeholder="e.g. Full Stack Web Development"
           />
           {errors.serviceName && (
-            <p className="text-sm text-red-500">{errors.serviceName}</p>
+            <p className="text-sm text-red-500">{errors.serviceName.message}</p>
           )}
         </div>
 
@@ -149,20 +142,30 @@ const ServicesForm = () => {
           </label>
           <textarea
             id="serviceBio"
-            name="serviceBio"
-            value={formData.serviceBio}
-            onChange={handleInputChange}
             rows={4}
-            className={`w-full px-4 py-2 sm:py-3 border rounded-lg text-sm sm:text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none dark:bg-gray-800 dark:text-white dark:border-gray-700 ${
-              errors.serviceBio ? "border-red-500" : "border-gray-300"
-            }`}
+            {...register("serviceBio", {
+              required: "Service description is required",
+              minLength: {
+                value: 20,
+                message: "Description must be at least 20 characters",
+              },
+              maxLength: {
+                value: 500,
+                message: "Description must not exceed 500 characters",
+              },
+            })}
+            className={`w-full px-4 py-2 sm:py-3 border rounded-lg text-sm sm:text-base 
+              focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors 
+              resize-none dark:bg-gray-800 dark:text-white dark:border-gray-700 ${
+                errors.serviceBio ? "border-red-500" : "border-gray-300"
+              }`}
             placeholder="Describe your service in detail. What do you offer? What problems do you solve?"
           />
           {errors.serviceBio && (
-            <p className="text-sm text-red-500">{errors.serviceBio}</p>
+            <p className="text-sm text-red-500">{errors.serviceBio.message}</p>
           )}
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            {formData.serviceBio.length}/500 characters
+            {serviceBio.length}/500 characters
           </p>
         </div>
 
@@ -176,16 +179,18 @@ const ServicesForm = () => {
           </label>
           <input
             id="technology"
-            name="technology"
-            value={formData.technology}
-            onChange={handleInputChange}
-            className={`w-full px-4 py-2 sm:py-3 border rounded-lg text-sm sm:text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors dark:bg-gray-800 dark:text-white dark:border-gray-700 ${
-              errors.technology ? "border-red-500" : "border-gray-300"
-            }`}
+            {...register("technology", {
+              required: "Technology stack is required",
+            })}
+            className={`w-full px-4 py-2 sm:py-3 border rounded-lg text-sm sm:text-base 
+              focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors 
+              dark:bg-gray-800 dark:text-white dark:border-gray-700 ${
+                errors.technology ? "border-red-500" : "border-gray-300"
+              }`}
             placeholder="e.g. React, Node.js, MongoDB, AWS"
           />
           {errors.technology && (
-            <p className="text-sm text-red-500">{errors.technology}</p>
+            <p className="text-sm text-red-500">{errors.technology.message}</p>
           )}
 
           <div className="flex flex-wrap gap-2 mt-2">
@@ -194,7 +199,9 @@ const ServicesForm = () => {
                 key={tech}
                 type="button"
                 onClick={() => addTechnology(tech)}
-                className="px-3 py-1 text-xs sm:text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full hover:bg-blue-100 dark:hover:bg-blue-800 transition-colors"
+                className="px-3 py-1 text-xs sm:text-sm bg-blue-50 dark:bg-blue-900/30 
+                  text-blue-700 dark:text-blue-300 rounded-full hover:bg-blue-100 
+                  dark:hover:bg-blue-800 transition-colors"
               >
                 + {tech}
               </button>
@@ -213,29 +220,34 @@ const ServicesForm = () => {
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
             <input
               id="serviceIconUrl"
-              name="serviceIconUrl"
-              value={formData.serviceIconUrl}
-              onChange={handleInputChange}
-              className={`flex-1 px-4 py-2 sm:py-3 border rounded-lg text-sm sm:text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors dark:bg-gray-800 dark:text-white dark:border-gray-700 ${
-                errors.serviceIconUrl ? "border-red-500" : "border-gray-300"
-              }`}
+              {...register("serviceIconUrl", {
+                pattern: {
+                  value: /^https?:\/\/.+\.(jpg|jpeg|png|gif|svg|webp)$/i,
+                  message: "Please enter a valid image URL",
+                },
+              })}
+              className={`flex-1 px-4 py-2 sm:py-3 border rounded-lg text-sm sm:text-base 
+                focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors 
+                dark:bg-gray-800 dark:text-white dark:border-gray-700 ${
+                  errors.serviceIconUrl ? "border-red-500" : "border-gray-300"
+                }`}
               placeholder="https://example.com/icon.png"
             />
-            {formData.serviceIconUrl && !errors.serviceIconUrl && (
+            {serviceIconUrl && !errors.serviceIconUrl && (
               <div className="w-12 h-12 border rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 flex-shrink-0">
                 <img
-                  src={formData.serviceIconUrl}
+                  src={serviceIconUrl}
                   alt="Service icon preview"
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.target.style.display = "none";
-                  }}
+                  onError={(e) => (e.currentTarget.style.display = "none")}
                 />
               </div>
             )}
           </div>
           {errors.serviceIconUrl && (
-            <p className="text-sm text-red-500">{errors.serviceIconUrl}</p>
+            <p className="text-sm text-red-500">
+              {errors.serviceIconUrl.message}
+            </p>
           )}
         </div>
 
@@ -244,7 +256,7 @@ const ServicesForm = () => {
           <Button
             type="button"
             variant="outline"
-            onClick={handleReset}
+            onClick={() => reset()}
             disabled={isSubmitting}
             className="px-6"
           >
@@ -254,19 +266,20 @@ const ServicesForm = () => {
             type="submit"
             disabled={isSubmitting}
             className="px-6 bg-blue-600 hover:bg-blue-700 text-white"
-            onClick={handleSubmit}
           >
             {isSubmitting ? (
               <div className="flex items-center space-x-2">
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 <span>Saving...</span>
               </div>
+            ) : isEdit ? (
+              "Update"
             ) : (
               "Save Service"
             )}
-          </Button>
+          </Button>{" "}
         </div>
-      </div>
+      </form>
     </div>
   );
 };

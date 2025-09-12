@@ -2,25 +2,39 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Pencil } from "lucide-react";
+import toast from "react-hot-toast";
 
-const ServiceContentForm = ({ onSubmit, defaultValues }) => {
+const ServiceContentForm = ({ serviceContent }) => {
   const [isEdit, setIsEdit] = useState(false);
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
-    defaultValues: defaultValues || {
-      title: "",
-      description: "",
-      highlightBio: "",
+    defaultValues: {
+      title: serviceContent?.title || "",
+      description: serviceContent?.description || "",
+      highlightBio: serviceContent?.highlightBio || "",
     },
   });
 
-  const onFormSubmit = (data) => {
-    console.log("Form Data Submitted: ", data);
-    // You can add your submission logic here
+  const onFormSubmit = async (data) => {
+    try {
+      const response = await fetch("/api/serviceContent", {
+        method: "PATCH",
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        toast.success(result.message || "Service content updated successfully");
+      } else {
+        toast.error(result.message || "Failed to update service content");
+      }
+    } catch (error) {
+      console.error("Error updating service content:", error);
+    }
     setIsEdit(false); // Disable edit mode after submission
   };
 
