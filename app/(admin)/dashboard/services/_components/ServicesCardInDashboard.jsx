@@ -35,16 +35,19 @@ const ServicesCardInDashboard = ({ service, setService, setIsEdit }) => {
 
   const handleDelete = async () => {
     try {
-      confirm("Are you sure you want to delete this service?");
-      const response = await fetch(`/api/service/${service?._id}`, {
-        method: "DELETE",
-      });
-      const result = await response.json();
-      if (result.success) {
-        router.refresh();
-        toast.success("Service deleted successfully");
+      if (confirm("Are you sure you want to delete this service?")) {
+        const response = await fetch(`/api/service/${service?._id}`, {
+          method: "DELETE",
+        });
+        const result = await response.json();
+        if (result.success) {
+          router.refresh();
+          toast.success("Service deleted successfully");
+        } else {
+          toast.error(result?.message || "Failed to delete service");
+        }
       } else {
-        toast.error(result?.message || "Failed to delete service");
+        toast.error("Service deletion cancelled");
       }
     } catch (error) {
       console.error("Error deleting service:", error);
