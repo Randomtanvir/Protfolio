@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -13,6 +15,15 @@ import {
 import CreateProjectForm from "./CreateProjectForm";
 
 const ProjectHeader = ({ isEdit, setIsEdit, project, setProject }) => {
+  const [openModal, setOpenModal] = React.useState(false);
+
+  // ✅ Automatically open "Add/Edit Service" modal when editing
+  React.useEffect(() => {
+    if (isEdit) {
+      setOpenModal(true);
+    }
+  }, [isEdit]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -29,15 +40,26 @@ const ProjectHeader = ({ isEdit, setIsEdit, project, setProject }) => {
       </div>
 
       {/* Controlled Dialog */}
-      <Dialog open={isEdit} onOpenChange={setIsEdit}>
-        {!isEdit && (
-          <DialogTrigger asChild>
-            <Button className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center space-x-2">
-              <CopyPlus />
-              <span>Add New Project</span>
-            </Button>
-          </DialogTrigger>
-        )}
+      <Dialog
+        open={openModal}
+        onOpenChange={(open) => {
+          setOpenModal(open);
+          if (!open) {
+            // Reset edit mode and clear service when modal closes
+            setIsEdit(false);
+            setProject({});
+          }
+        }}
+      >
+        <DialogTrigger asChild>
+          <Button
+            className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center space-x-2"
+            onClick={() => setIsEdit(false)} // reset when manually opening
+          >
+            <CopyPlus />
+            <span>Add New Project</span>
+          </Button>
+        </DialogTrigger>
 
         <DialogContent className="w-full sm:min-w-4xl rounded-none bg-white dark:bg-gray-800 p-6 lg:p-10">
           <DialogHeader className="text-center lg:text-left">
@@ -51,7 +73,14 @@ const ProjectHeader = ({ isEdit, setIsEdit, project, setProject }) => {
             </DialogDescription>
           </DialogHeader>
 
-          <CreateProjectForm isEdit={isEdit} project={project} />
+          {/* Pass callback so form can close modal after submit */}
+          <CreateProjectForm
+            isEdit={isEdit}
+            project={project}
+            setOpenModal={setOpenModal}
+            setIsEdit={setIsEdit}
+            setProject={setProject}
+          />
         </DialogContent>
       </Dialog>
     </motion.div>

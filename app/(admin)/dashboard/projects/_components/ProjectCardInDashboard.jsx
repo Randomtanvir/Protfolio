@@ -1,17 +1,65 @@
+import TechIcon from "@/app/(frontend)/projects/_components/TechIcon";
 import { Pencil, RefreshCcw, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
 
 const ProjectCardInDashboard = ({ project, onEdit }) => {
+  const route = useRouter();
+
+  const handleDelete = async (id) => {
+    if (confirm("Are you sure you want to delete this project?")) {
+      try {
+        const res = await fetch(`/api/project/${id}`, {
+          method: "DELETE",
+        });
+        const result = await res.json();
+        if (result.success) {
+          toast.success("Project deleted successfully");
+          route.refresh();
+        }
+      } catch (error) {
+        console.error("Error deleting project:", error);
+        alert("Failed to delete project");
+      }
+    }
+  };
+
+  const handleToggleStatus = async (project) => {
+    const newStatus = project.status === "complete" ? "working" : "complete";
+
+    try {
+      const res = await fetch(`/api/project/${project._id}`, {
+        method: "PUT",
+        body: JSON.stringify({ ...project, status: newStatus }),
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        toast.success("Project status updated");
+        route.refresh();
+      } else {
+        toast.error(result.message || "Failed to update status");
+      }
+    } catch (error) {
+      console.error("Error updating project status:", error);
+      toast.error("Failed to update project status");
+    }
+  };
+
   return (
     <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition relative">
       {/* Image */}
       <div className="relative w-full h-48">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover"
-        />
+        {project?.image && (
+          <img
+            src={project.image}
+            alt={project?.title}
+            className="w-full h-full object-cover"
+          />
+        )}
+
         <span
           className={`absolute top-3 left-3 text-xs px-3 py-1 rounded-full ${
             project.status === "complete"
@@ -49,15 +97,18 @@ const ProjectCardInDashboard = ({ project, onEdit }) => {
         {/* Technologies */}
         <div className="flex flex-wrap gap-2">
           {project.technologyUrls.map((tech, index) => (
-            <Link
+            <div
               key={index}
-              href={tech.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              className="w-8 h-8 rounded-full flex items-center justify-center bg-gray-800/50 dark:bg-white/10"
             >
-              {new URL(tech.url).hostname.replace("www.", "")}
-            </Link>
+              <img
+                src={tech?.url || ""}
+                alt={"name"}
+                width={20}
+                height={20}
+                className="object-contain"
+              />
+            </div>
           ))}
         </div>
 
@@ -91,14 +142,14 @@ const ProjectCardInDashboard = ({ project, onEdit }) => {
             <span>Edit</span>
           </button>
           <button
-            onClick={() => console.log("project to delete:")}
+            onClick={() => handleDelete(project._id)}
             className="flex items-center space-x-1 text-sm text-red-600 hover:text-red-800"
           >
             <Trash2 size={16} />
             <span>Delete</span>
           </button>
           <button
-            onClick={() => console.log("project to toggle status:")}
+            onClick={() => handleToggleStatus(project)}
             className="flex items-center space-x-1 text-sm text-gray-600 hover:text-gray-800"
           >
             <RefreshCcw size={16} />

@@ -1,33 +1,14 @@
-"use client";
-import { useState } from "react";
-import DashboardSidebar from "../_components/DashboardSidebar";
-import ProjectHeader from "./_components/ProjectHeader";
-import ProjectLists from "./_components/ProjectLists";
+import React from "react";
+import MainComponent from "./_components/MainComponent";
+import { getAllProjects } from "@/utils/project";
 
-export default function ProjectsPage() {
-  const [isEdit, setIsEdit] = useState(false);
-  const [project, setProject] = useState({});
-
+const ProjectPageInDashboard = async () => {
+  const projects = await getAllProjects();
   return (
-    <div className="min-h-screen mt-10">
-      <DashboardSidebar />
-      <div className="lg:ml-64 min-h-screen p-4 sm:p-6 lg:p-8">
-        <div className="max-w-7xl mx-auto space-y-6 lg:space-y-8">
-          {/* Header */}
-          <ProjectHeader
-            isEdit={isEdit}
-            setIsEdit={setIsEdit}
-            project={project}
-            setProject={setProject}
-          />
-          {/* Projects Grid */}
-          <ProjectLists
-            isEdit={isEdit}
-            setIsEdit={setIsEdit}
-            setProject={setProject}
-          />
-        </div>
-      </div>
-    </div>
+    <>
+      <MainComponent projects={projects} />
+    </>
   );
-}
+};
+
+export default ProjectPageInDashboard;

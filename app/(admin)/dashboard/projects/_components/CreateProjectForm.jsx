@@ -11,8 +11,17 @@ import {
   Monitor,
   Image as ImageIcon,
 } from "lucide-react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-const CreateProjectForm = ({ isEdit, project }) => {
+const CreateProjectForm = ({
+  isEdit,
+  project,
+  setIsEdit,
+  setProject,
+  setOpenModal,
+}) => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -21,17 +30,17 @@ const CreateProjectForm = ({ isEdit, project }) => {
     reset,
     formState: { errors, isSubmitting },
   } = useForm({
-    defaultValues: project || {
-      title: "",
-      description: "",
-      progress: 0,
-      status: "working",
-      technologyUrls: [{ url: "" }],
-      liveLink: "",
-      sourceCode: "",
+    defaultValues: {
+      title: project?.title || "",
+      description: project?.description || "",
+      progress: project?.progress || 0,
+      status: project?.status || "working",
+      technologyUrls: project?.technologyUrls || [{ url: "" }],
+      liveLink: project?.liveLink || "",
+      sourceCode: project?.sourceCode || "",
       imageOption: "upload", // default upload option
-      image: null,
-      imageUrl: "",
+      image: project?.image || null,
+      imageUrl: project?.image || "",
     },
   });
 
@@ -40,16 +49,50 @@ const CreateProjectForm = ({ isEdit, project }) => {
     name: "technologyUrls",
   });
 
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState(project?.image || null);
   const watchImage = watch("image");
   const watchOption = watch("imageOption");
   const watchImageUrl = watch("imageUrl");
 
-  const onSubmit = (data) => {
-    console.log("Project Data:", data);
-    alert("✅ Project created successfully!");
-    reset();
-    setImagePreview(null);
+  const onSubmit = async (data) => {
+    // Create a FormData object to handle file upload
+    const formData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      if (key === "image" && value) {
+        formData.append("image", value);
+      } else if (typeof value === "object" && value !== null) {
+        formData.append(key, JSON.stringify(value));
+      } else {
+        formData.append(key, value);
+      }
+    });
+    try {
+      const response = await fetch(
+        isEdit ? `/api/project/${project?._id}` : "/api/project",
+        {
+          method: isEdit ? "PATCH" : "POST",
+          body: formData,
+        }
+      );
+
+      // Handle response as needed
+      const res = await response.json();
+      if (res.success) {
+        toast.success(res.message || "Project created successfully!");
+        router.refresh();
+        reset();
+        setOpenModal(false);
+        setIsEdit(false);
+        setProject({});
+        setImagePreview(null);
+      } else {
+        toast.error(res.message || "Failed to create project.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("An error occurred while creating the project.");
+    }
   };
 
   return (
@@ -339,10 +382,11 @@ const CreateProjectForm = ({ isEdit, project }) => {
               disabled={isSubmitting}
             >
               {isSubmitting ? (
-                "Creating..."
+                "Loading..."
               ) : (
                 <>
-                  <Monitor className="w-4 h-4" /> Create Project
+                  <Monitor className="w-4 h-4" />{" "}
+                  {isEdit ? "Update Project" : "Create Project"}
                 </>
               )}
             </button>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import TechIcon from "./TechIcon";
+import Link from "next/link";
 
 const ProjectCard = ({ project }) => {
   return (
@@ -24,7 +25,7 @@ const ProjectCard = ({ project }) => {
             <TechIcon key={tech} name={tech} />
           ))}
         </div>
-        <a
+        <Link
           href={project.link}
           className="inline-flex items-center text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
         >
@@ -42,7 +43,7 @@ const ProjectCard = ({ project }) => {
               d="M14 5l7 7m0 0l-7 7m7-7H3"
             />
           </svg>
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -7,7 +7,6 @@ import ServiceLists from "./ServiceLists";
 const MainSearviceComponent = ({ serviceContent, services }) => {
   const [isEdit, setIsEdit] = React.useState(false);
   const [service, setService] = React.useState(null);
-  console.log(service);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

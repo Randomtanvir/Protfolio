@@ -17,8 +17,8 @@ const ProjectSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["planning", "working", "completed", "onHold"],
-      default: "planning",
+      enum: ["working", "completed"],
+      default: "working",
     },
     liveLink: {
       type: String,
@@ -31,11 +31,6 @@ const ProjectSchema = new mongoose.Schema(
     image: {
       type: String, // store uploaded image URL
       default: "",
-    },
-    imageOption: {
-      type: String,
-      enum: ["upload", "url"],
-      default: "upload",
     },
     technologyUrls: [
       {
