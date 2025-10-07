@@ -89,7 +89,7 @@ const ServicesCardInDashboard = ({ service, setService, setIsEdit }) => {
           <img
             src={service?.serviceIconUrl || "/icons/service-icon.png"}
             alt="icon"
-            className="w-8 h-8"
+            className="w-10 h-10 rounded-full object-cover"
           />
         </div>
 
