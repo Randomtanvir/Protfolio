@@ -49,12 +49,18 @@ const ServicesForm = ({
           serviceBio: service?.serviceBio || "",
           serviceIconUrl: service?.serviceIconUrl || "",
           technology: service?.technology || "",
+          iconColor: service?.iconColor || "#000000",
+          blobColor1: service?.blobColor1 || "#ff7e5f",
+          blobColor2: service?.blobColor2 || "#feb47b",
         }
       : {
           serviceName: "",
           serviceBio: "",
           serviceIconUrl: "",
           technology: "",
+          iconColor: "",
+          blobColor1: "#",
+          blobColor2: "#",
         },
   });
 
@@ -249,6 +255,62 @@ const ServicesForm = ({
               {errors.serviceIconUrl.message}
             </p>
           )}
+        </div>
+
+        {/* {colour } */}
+
+        <div className="flex flex-wrap gap-6">
+          <div className="space-y-2">
+            <label
+              htmlFor="iconColor"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+            >
+              Icon Color
+            </label>
+            <input
+              type="color"
+              id="iconColor"
+              {...register("iconColor")}
+              className={`w-16 h-10 p-0 border rounded-lg cursor-pointer 
+              focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors 
+              dark:bg-gray-800 dark:border-gray-700`}
+              title="Choose your color"
+            />
+          </div>
+          <div className="space-y-2">
+            <label
+              htmlFor="blobColor1"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+            >
+              Blob Color 1
+            </label>
+            <input
+              type="color"
+              id="blobColor1"
+              {...register("blobColor1")}
+              className={`w-16 h-10 p-0 border rounded-lg cursor-pointer 
+              focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors
+              dark:bg-gray-800 dark:border-gray-700`}
+              title="Choose your color"
+            />
+          </div>
+          <div className="space-y-2">
+            <label
+              htmlFor="blobColor2"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+            >
+              Blob Color 2
+            </label>
+            <input
+              type="color"
+              id="blobColor2"
+              {...register("blobColor2")}
+              className={`w-16 h-10 p-0 border rounded-lg cursor-pointer 
+              focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors
+              dark:bg-gray-800 dark:border-gray-700`}
+              title="Choose your color"
+            />
+          </div>
         </div>
 
         {/* Submit Buttons */}

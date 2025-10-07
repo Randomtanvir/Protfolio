@@ -25,6 +25,18 @@ const ServiceSchema = new mongoose.Schema(
       enum: ["active", "draft"],
       default: "draft",
     },
+    iconColor: {
+      type: String,
+      default: "#000000", // Default to black if no color is provided
+    },
+    blobColor1: {
+      type: String,
+      default: "#ff7e5f", // Example gradient color 1
+    },
+    blobColor2: {
+      type: String,
+      default: "#feb47b", // Example gradient color 2
+    },
   },
   { timestamps: true }
 );
