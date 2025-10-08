@@ -18,6 +18,12 @@ export async function POST(request) {
         { status: 400 }
       );
     }
+    if (!/\S+@\S+\.\S+/.test(body.email)) {
+      return NextResponse.json(
+        { success: false, message: "Invalid email format." },
+        { status: 400 }
+      );
+    }
 
     const message = await Message.create(body);
 
