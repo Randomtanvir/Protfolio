@@ -7,5 +7,6 @@ export const getAllProjects = async () => {
     return result.data || [];
   } catch (error) {
     console.log("Error fetching service content:", error);
+    return [];
   }
 };

@@ -1,4 +1,4 @@
-export const getAllMessages = async (search, page = 1, limit = 5) => {
+export const getAllMessages = async (search = "", page = 1, limit = 5) => {
   try {
     const res = await fetch(
       `/api/message?search=${encodeURIComponent(

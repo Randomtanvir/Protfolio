@@ -7,10 +7,10 @@ export const getServiceContent = async () => {
       }
     );
     const result = await res.json();
-    console.log(result);
     return result.data || {};
   } catch (error) {
     console.log("Error fetching service content:", error);
+    return {};
   }
 };
 
@@ -20,9 +20,9 @@ export const getAllServices = async () => {
       cache: "no-store",
     });
     const result = await res.json();
-    console.log(result);
     return result.data || [];
   } catch (error) {
     console.log("Error fetching service:", error);
+    return [];
   }
 };
