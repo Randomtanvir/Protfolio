@@ -46,3 +46,28 @@ export async function DELETE(request, { params }) {
     );
   }
 }
+
+export async function PATCH(request, { params }) {
+  await connectMongo();
+  const id = params.id;
+  try {
+    const message = await Message.findByIdAndUpdate(
+      id,
+      { read: true },
+      { new: true }
+    );
+    if (!message) {
+      return NextResponse.json(
+        { success: false, message: "Message not found" },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json({ success: true, data: message }, { status: 200 });
+  } catch (error) {
+    console.error("Error updating message:", error);
+    return NextResponse.json(
+      { success: false, message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

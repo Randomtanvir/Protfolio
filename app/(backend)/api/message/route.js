@@ -49,13 +49,12 @@ export async function GET(request) {
   await connectMongo();
 
   try {
-    // Parse URL and query parameters
     const { searchParams } = new URL(request.url);
 
-    // 🔍 Search query (by name or email)
     const search = searchParams.get("search") || "";
+    const page = parseInt(searchParams.get("page") || "1", 10);
+    const limit = parseInt(searchParams.get("limit") || "5", 10);
 
-    // 🔧 Build query condition
     const query = search
       ? {
           $or: [
@@ -65,13 +64,20 @@ export async function GET(request) {
         }
       : {};
 
-    // 🧠 Fetch messages (sorted newest first)
-    const messages = await Message.find(query).sort({ createdAt: -1 });
+    const total = await Message.countDocuments(query);
+    const totalPages = Math.ceil(total / limit);
 
-    return NextResponse.json(
-      { success: true, count: messages.length, data: messages },
-      { status: 200 }
-    );
+    const messages = await Message.find(query)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    return NextResponse.json({
+      success: true,
+      total,
+      totalPages,
+      data: messages,
+    });
   } catch (error) {
     console.error("Error fetching messages:", error);
     return NextResponse.json(

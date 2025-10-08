@@ -1,20 +1,8 @@
 "use client";
-import React, { useState } from "react";
-import { Switch } from "@/components/ui/switch";
-import { motion } from "framer-motion";
+import React from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import {
-  Headset,
-  Crown,
-  TrendingUp,
-  ArrowRight,
-  Pencil,
-  Trash2,
-  Anchor,
-  CheckCircle,
-  XCircle,
-} from "lucide-react";
+import { ArrowRight, Pencil, Trash2 } from "lucide-react";
 import ActionButton from "./ActionButton";
 import StatusToggle from "./StatusToggle";
 import Link from "next/link";

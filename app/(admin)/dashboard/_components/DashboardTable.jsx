@@ -2,66 +2,123 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-
-const recentActivities = [
-  {
-    id: 1,
-    type: "Project Update",
-    description: "Portfolio website redesign completed",
-    date: "2 hours ago",
-    status: "completed",
-  },
-  {
-    id: 2,
-    type: "New Message",
-    description: "Client feedback received for UI design",
-    date: "5 hours ago",
-    status: "new",
-  },
-  {
-    id: 3,
-    type: "Task Progress",
-    description: "Mobile app development in progress",
-    date: "1 day ago",
-    status: "in-progress",
-  },
-  {
-    id: 4,
-    type: "Analytics",
-    description: "Monthly traffic report generated",
-    date: "2 days ago",
-    status: "completed",
-  },
-  {
-    id: 5,
-    type: "Maintenance",
-    description: "System updates and security patches",
-    date: "3 days ago",
-    status: "completed",
-  },
-];
+import { getAllMessages } from "@/utils/message";
+import { debounce } from "lodash";
+import MessageReadModal from "./MessageReadModal";
+import { useRouter } from "next/navigation";
+import Pagination from "./Pagenation";
 
 const statusColors = {
-  completed: "bg-green-500/10 text-green-500",
+  read: "bg-green-500/10 text-green-500",
   "in-progress": "bg-yellow-500/10 text-yellow-500",
   new: "bg-blue-500/10 text-blue-500",
 };
 
 const DashboardTable = () => {
+  const [messages, setMessages] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [inputValue, setInputValue] = React.useState(""); // immediate input display
+  const [searchTerm, setSearchTerm] = React.useState(""); // debounced search
+  const [open, setOpen] = React.useState(false);
+  const [readingMessage, setReadingMessage] = React.useState(null);
+  const router = useRouter();
+  const [page, setPage] = React.useState(1);
+  const [limit] = React.useState(5);
+  const [pagination, setPagination] = React.useState({
+    total: 0,
+    totalPages: 0,
+  });
+
+  // Debounced search
+  const debouncedSearch = React.useMemo(
+    () =>
+      debounce((value) => {
+        setSearchTerm(value);
+        setPage(1); // Reset to first page on new search
+      }, 800),
+    []
+  );
+
+  React.useEffect(() => {
+    return () => debouncedSearch.cancel();
+  }, [debouncedSearch]);
+
+  // Fetch messages
+  React.useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        setLoading(true);
+        const { data, totalPages, total } = await getAllMessages(
+          searchTerm,
+          page,
+          limit
+        );
+        setMessages(data);
+        setPagination({ totalPages, total });
+      } catch (error) {
+        console.log("Error fetching messages:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMessages();
+  }, [searchTerm, page, limit]);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value); // immediate input update
+    debouncedSearch(value);
+  };
+
+  const handleClick = (message) => {
+    setMessages((prev) =>
+      prev.map((msg) =>
+        msg._id === message._id ? { ...msg, read: true } : msg
+      )
+    );
+    setReadingMessage(message);
+    setOpen(true);
+  };
+
+  const handleClose = (id) => {
+    setOpen(false);
+    setReadingMessage(null);
+    if (id) {
+      setMessages((prev) => prev.filter((msg) => msg._id !== id));
+    }
+    router.refresh();
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-48">
+        <div className="loader"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-white/10 dark:bg-gray-800/50 backdrop-blur-xl border border-gray-200/10 rounded-2xl p-6">
+    <div className="bg-white/10 mb-20 md:mb-0 dark:bg-gray-800/50 backdrop-blur-xl border border-gray-200/10 rounded-2xl p-6">
       {/* Table Header */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-          Recent Activities
+          Recent Messages
         </h2>
-        <motion.button
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="px-4 py-2 text-sm font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
         >
-          View All
-        </motion.button>
+          <input
+            type="text"
+            placeholder="Search Messages..."
+            value={inputValue}
+            onChange={handleChange}
+            className="bg-gray-700 text-white rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </motion.div>
       </div>
 
       {/* Table Content */}
@@ -70,10 +127,10 @@ const DashboardTable = () => {
           <thead>
             <tr className="border-b border-gray-200/10">
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                Type
+                Name
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                Description
+                Email
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Date
@@ -84,67 +141,68 @@ const DashboardTable = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200/10">
-            {recentActivities.map((activity, index) => (
+            {messages?.map((msg, index) => (
               <motion.tr
-                key={activity.id}
+                key={msg._id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
-                className="hover:bg-gray-50/5 transition-colors"
+                className="hover:bg-gray-50/5 transition-colors cursor-pointer"
+                onClick={() => handleClick(msg)}
               >
                 <td className="px-4 py-4 whitespace-nowrap">
                   <span className="text-sm font-medium text-gray-900 dark:text-white">
-                    {activity.type}
+                    {msg.name}
                   </span>
                 </td>
                 <td className="px-4 py-4">
                   <span className="text-sm text-gray-600 dark:text-gray-300">
-                    {activity.description}
+                    {msg.email}
                   </span>
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap">
                   <span className="text-sm text-gray-500 dark:text-gray-400">
-                    {activity.date}
+                    {msg.createdAt.split("T")[0]}
                   </span>
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap">
                   <span
                     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      statusColors[activity.status]
+                      !msg.read ? statusColors.new : statusColors.read
                     }`}
                   >
-                    {activity.status.charAt(0).toUpperCase() +
-                      activity.status.slice(1)}
+                    {!msg.read ? "New" : "Read"}
                   </span>
                 </td>
               </motion.tr>
             ))}
           </tbody>
         </table>
+
+        {messages?.length === 0 && (
+          <div className="text-center py-10 text-gray-500 dark:text-gray-400">
+            No messages found.
+          </div>
+        )}
+
+        {open && readingMessage && (
+          <MessageReadModal
+            activity={readingMessage}
+            isOpen={open}
+            onClose={handleClose}
+            router={router}
+          />
+        )}
       </div>
 
-      {/* Table Footer */}
-      <div className="flex items-center justify-between mt-6 border-t border-gray-200/10 pt-4">
-        <span className="text-sm text-gray-500 dark:text-gray-400">
-          Showing 5 of 20 activities
-        </span>
-        <div className="flex space-x-2">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-3 py-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
-          >
-            Previous
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-3 py-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
-          >
-            Next
-          </motion.button>
-        </div>
-      </div>
+      {/* Pagination */}
+      <Pagination
+        currentPage={page}
+        totalPages={pagination.totalPages}
+        totalCount={pagination.total}
+        limit={limit}
+        onPageChange={(newPage) => setPage(newPage)}
+      />
     </div>
   );
 };
