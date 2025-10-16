@@ -4,8 +4,6 @@ import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 
 const About = ({ profileInfo }) => {
-  console.log(profileInfo);
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
