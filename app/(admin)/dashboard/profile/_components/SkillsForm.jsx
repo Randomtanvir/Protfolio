@@ -51,37 +51,39 @@ const SkillsForm = ({ profile }) => {
         Skills
       </h3>
 
-      {fields.map((field, index) => (
-        <div
-          key={field.id}
-          className="space-y-2 p-3 rounded-lg border border-gray-200 dark:border-gray-700"
-        >
-          {/* Skill Name */}
-          <input
-            {...register(`skills.${index}.name`, { required: true })}
-            defaultValue={field.name}
-            className="flex-1 px-3 py-2 text-gray-900 dark:text-white bg-transparent border rounded-lg border-gray-200 dark:border-gray-700 hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-            placeholder="Skill Name"
-          />
-
-          {/* Skill URL */}
-          <input
-            {...register(`skills.${index}.url`)}
-            defaultValue={field.url}
-            className="flex-1 px-3 py-2 text-gray-900 dark:text-white bg-transparent border rounded-lg border-gray-200 dark:border-gray-700 hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
-            placeholder="https://imageUrl.com/skill"
-          />
-
-          {/* Remove button */}
-          <button
-            type="button"
-            onClick={() => remove(index)}
-            className="px-3 py-2 text-red-500 cursor-pointer hover:text-red-500 transition-all"
+      <div className="max-h-96 overflow-auto">
+        {fields.map((field, index) => (
+          <div
+            key={field.id}
+            className="space-y-2 p-3 mb-1 rounded-lg border border-gray-200 dark:border-gray-700"
           >
-            ✕
-          </button>
-        </div>
-      ))}
+            {/* Skill Name */}
+            <input
+              {...register(`skills.${index}.name`, { required: true })}
+              defaultValue={field.name}
+              className="flex-1 px-3 py-2 text-gray-900 dark:text-white bg-transparent border rounded-lg border-gray-200 dark:border-gray-700 hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
+              placeholder="Skill Name"
+            />
+
+            {/* Skill URL */}
+            <input
+              {...register(`skills.${index}.url`)}
+              defaultValue={field.url}
+              className="flex-1 px-3 py-2 text-gray-900 dark:text-white bg-transparent border rounded-lg border-gray-200 dark:border-gray-700 hover:border-gray-300 focus:border-blue-500 focus:outline-none transition-all"
+              placeholder="https://imageUrl.com/skill"
+            />
+
+            {/* Remove button */}
+            <button
+              type="button"
+              onClick={() => remove(index)}
+              className="px-3 py-2 text-red-500 cursor-pointer hover:text-red-500 transition-all"
+            >
+              ✕
+            </button>
+          </div>
+        ))}
+      </div>
 
       {/* Add & Save buttons */}
       <div className="flex flex-wrap gap-2 mt-2">

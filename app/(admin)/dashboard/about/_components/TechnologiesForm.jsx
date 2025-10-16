@@ -127,35 +127,36 @@ const TechnologiesForm = ({ aboutInfo }) => {
             Skill Icon URLs
           </label>
 
-          {fields.map((field, index) => (
-            <div key={field.id} className="flex items-center gap-3">
-              <input
-                {...register(`skillsIcons.${index}.url`, {
-                  required: "This field is required",
-                  pattern: {
-                    value: /^https?:\/\/.+\.(jpg|jpeg|png|gif|svg|webp)$/i,
-                    message: "Please enter a valid image URL",
-                  },
-                })}
-                className={`flex-1 px-4 py-2 sm:py-3 border rounded-lg text-sm sm:text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-700 ${
-                  errors.skillsIcons?.[index]?.url
-                    ? "border-red-500"
-                    : "border-gray-300"
-                }`}
-                placeholder="https://example.com/icon.svg"
-              />
+          <div className="max-h-40 overflow-auto">
+            {fields.map((field, index) => (
+              <div key={field.id} className="flex items-center gap-3">
+                <input
+                  {...register(`skillsIcons.${index}.url`, {
+                    required: "This field is required",
+                    pattern: {
+                      value: /^https?:\/\/.+\.(jpg|jpeg|png|gif|svg|webp)$/i,
+                      message: "Please enter a valid image URL",
+                    },
+                  })}
+                  className={`flex-1 px-4 py-2 sm:py-3 border rounded-lg text-sm sm:text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-700 ${
+                    errors.skillsIcons?.[index]?.url
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  }`}
+                  placeholder="https://example.com/icon.svg"
+                />
 
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => remove(index)}
-                className="px-3 py-2"
-              >
-                ✕
-              </Button>
-            </div>
-          ))}
-
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => remove(index)}
+                  className="px-3 py-2"
+                >
+                  ✕
+                </Button>
+              </div>
+            ))}
+          </div>
           {errors.skillsIcons &&
             errors.skillsIcons.map(
               (err, index) =>
@@ -165,7 +166,6 @@ const TechnologiesForm = ({ aboutInfo }) => {
                   </p>
                 )
             )}
-
           <Button
             type="button"
             variant="secondary"

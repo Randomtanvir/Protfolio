@@ -1,6 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import { User, Mail, Camera, Save, FileText } from "lucide-react";
+import {
+  User,
+  Mail,
+  Camera,
+  Save,
+  FileText,
+  Phone,
+  LocateIcon,
+} from "lucide-react";
 import { useForm } from "react-hook-form";
 
 const ProfileChangeForm = () => {
@@ -16,6 +24,8 @@ const ProfileChangeForm = () => {
     defaultValues: {
       name: "John Doe",
       email: "john.doe@example.com",
+      phone: "01639528846",
+      location: "Khulna,Terokhada",
       profileImage:
         "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
       resume: null,
@@ -136,6 +146,68 @@ const ProfileChangeForm = () => {
             {errors.email && (
               <p className="text-red-500 dark:text-red-400 text-sm mt-1">
                 {errors.email.message}
+              </p>
+            )}
+          </div>
+
+          {/* Email phone */}
+          <div>
+            <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
+              Phone
+            </label>
+            <div className="relative">
+              <Phone className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" />
+              <input
+                type="phone"
+                {...register("phone", {
+                  required: "Email is required",
+                })}
+                className="
+                  w-full rounded-lg pl-12 pr-4 py-3 
+                  border border-gray-300 dark:border-white/20 
+                  bg-white dark:bg-white/5
+                  text-gray-900 dark:text-white 
+                  placeholder-gray-400
+                  focus:border-blue-500 focus:ring-2 focus:ring-blue-400/30
+                  transition-all duration-300
+                "
+                placeholder="Enter your email"
+              />
+            </div>
+            {errors.phone && (
+              <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                {errors.phone.message}
+              </p>
+            )}
+          </div>
+
+          {/* Email location */}
+          <div>
+            <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
+              Location
+            </label>
+            <div className="relative">
+              <LocateIcon className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" />
+              <input
+                type="location"
+                {...register("location", {
+                  required: "location is required",
+                })}
+                className="
+                  w-full rounded-lg pl-12 pr-4 py-3 
+                  border border-gray-300 dark:border-white/20 
+                  bg-white dark:bg-white/5
+                  text-gray-900 dark:text-white 
+                  placeholder-gray-400
+                  focus:border-blue-500 focus:ring-2 focus:ring-blue-400/30
+                  transition-all duration-300
+                "
+                placeholder="Enter your email"
+              />
+            </div>
+            {errors.location && (
+              <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                {errors.location.message}
               </p>
             )}
           </div>

@@ -3,21 +3,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 
-const About = () => {
-  const skills = [
-    {
-      name: "Full Stack Developer",
-      desc: "Specialized in React & Next.js",
-      icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
-      color: "blue",
-    },
-    {
-      name: "UI/UX Designer",
-      desc: "Creating engaging interfaces",
-      icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z",
-      color: "purple",
-    },
-  ];
+const About = ({ profileInfo }) => {
+  console.log(profileInfo);
 
   return (
     <motion.div
@@ -27,7 +14,7 @@ const About = () => {
       className="relative lg:col-start-3 lg:col-span-1 lg:row-start-1 lg:row-span-2"
     >
       <div
-        className="relative bg-white/40 dark:bg-gray-800/40 backdrop-blur-xl rounded-3xl p-8 border border-white/20 dark:border-gray-700/20
+        className="relative bg-zinc-200/50 dark:bg-gray-800/40 backdrop-blur-xl rounded-3xl p-8 border border-white/20 dark:border-gray-700/20
                 min-h-[600px] lg:min-h-[700px] xl:h-full"
       >
         <motion.div
@@ -52,57 +39,24 @@ const About = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-gray-600 dark:text-gray-400 leading-relaxed"
             >
-              I am a passionate web developer and designer with a keen eye for
-              creating beautiful, functional, and user-centered digital
-              experiences. With expertise in both design and development, I
-              bridge the gap between aesthetics and functionality.
+              {profileInfo?.bio}
             </motion.p>
           </div>
 
           {/* Skills */}
           <div className="space-y-4">
-            {skills.map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                className="relative group"
-              >
-                <div
-                  className={`absolute inset-0 bg-${skill.color}-500/10 rounded-2xl blur-xl transition-all duration-300 group-hover:bg-${skill.color}-500/20`}
-                />
-                <div className="relative bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl p-4 border border-white/20 dark:border-gray-700/20">
-                  <div className="flex items-center space-x-4">
-                    <div
-                      className={`w-12 h-12 rounded-xl bg-${skill.color}-500/10 flex items-center justify-center`}
-                    >
-                      <svg
-                        className={`w-6 h-6 text-${skill.color}-500`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d={skill.icon}
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-gray-900 dark:text-white">
-                        {skill.name}
-                      </h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {skill.desc}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+            <HighlightSkills
+              color="blue"
+              icon="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              name={profileInfo?.stack}
+              desc={profileInfo?.stackBio}
+            />
+            <HighlightSkills
+              color="purple"
+              icon="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              name={profileInfo?.extraRole}
+              desc={profileInfo?.extraBio}
+            />
           </div>
 
           {/* Download CV Button */}
@@ -193,3 +147,45 @@ const About = () => {
 };
 
 export default About;
+
+const HighlightSkills = ({ color, icon, name, desc }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6, delay: 0.3 }}
+      className="relative group"
+    >
+      <div
+        className={`absolute inset-0 bg-${color}-500/10 rounded-2xl blur-xl transition-all duration-300 group-hover:bg-${color}-500/20`}
+      />
+      <div className="relative bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl p-4 border border-white/20 dark:border-gray-700/20">
+        <div className="flex items-center space-x-4">
+          <div
+            className={`w-12 h-12 rounded-xl bg-${color}-500/10 flex items-center justify-center`}
+          >
+            <svg
+              className={`w-6 h-6 text-${color}-500`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d={icon}
+              />
+            </svg>
+          </div>
+          <div>
+            <h3 className="font-medium text-gray-900 dark:text-white">
+              {name}
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{desc}</p>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};

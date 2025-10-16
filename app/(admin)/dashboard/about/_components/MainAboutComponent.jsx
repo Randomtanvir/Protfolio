@@ -50,7 +50,7 @@ const MainAboutComponent = ({ aboutInfo }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 mt-10">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="fixed top-0 left-0 z-40 lg:z-50">
         <DashboardSidebar />
       </div>
