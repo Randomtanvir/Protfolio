@@ -7,26 +7,32 @@ const ProjectCard = ({ project }) => {
     <div className="dark:bg-white/5 bg-white/50 backdrop-blur-sm rounded-2xl overflow-hidden group hover:bg-white/10 transition-all duration-300 border border-white/10">
       <div className="relative h-48 overflow-hidden">
         <Image
-          src={project.image}
-          alt={project.title}
+          src={project?.image}
+          alt={project?.title}
           fill
           className="object-cover group-hover:scale-110 transition-transform duration-300"
         />
+        <Link
+          href={project?.sourceCode}
+          className="absolute top-3 right-3 text-xs px-3 py-1 rounded-full bg-green-100 text-green-600"
+        >
+          Code
+        </Link>
       </div>
       <div className="p-6">
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-          {project.title}
+          {project?.title}
         </h3>
         <p className="text-gray-600 dark:text-gray-300 mb-4">
-          {project.description}
+          {project?.description}
         </p>
         <div className="flex items-center gap-2 mb-4">
-          {project.technologies.map((tech) => (
-            <TechIcon key={tech} name={tech} />
+          {project?.technologyUrls?.map((tech) => (
+            <TechIcon key={tech._id} name={tech?.url} />
           ))}
         </div>
         <Link
-          href={project.link}
+          href={project?.liveLink}
           className="inline-flex items-center text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
         >
           <span>Visit Project</span>

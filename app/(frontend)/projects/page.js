@@ -1,3 +1,4 @@
+import { getAllProjects } from "@/utils/project";
 import ProjectCard from "./_components/ProjectCard";
 
 const projects = [
@@ -60,7 +61,13 @@ const projects = [
   },
 ];
 
-const ProjectsPage = () => {
+const ProjectsPage = async () => {
+  const project = await getAllProjects();
+  const completeProject =
+    project?.length > 0
+      ? project.filter((pro) => pro?.status === "complete")
+      : [];
+  console.log(completeProject);
   return (
     <section className="relative w-full min-h-screen bg-[url('/projectsBGlight.svg')] dark:bg-[url('/projectsBG.jpg')] bg-cover bg-center before:absolute before:inset-0 before:bg-gray-800/50 dark:before:bg-[#0a0f1de7] overflow-hidden">
       <div className="container mx-auto px-4 py-20 relative z-10">
@@ -68,9 +75,10 @@ const ProjectsPage = () => {
           RECENT PROJECTS
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 animate-fade-up">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} />
-          ))}
+          {completeProject?.length > 0 &&
+            completeProject?.map((project) => (
+              <ProjectCard key={project?._id} project={project} />
+            ))}
         </div>
       </div>
     </section>

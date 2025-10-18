@@ -11,15 +11,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <ThemeProvider>
-        <body
-          className={`relative min-h-screen w-full dark:bg-[#0a0f1d] bg-[#F9FAFB] dark:text-white text-gray-600 overflow-x-hidden`}
-        >
+      <body
+        className={`relative min-h-screen w-full dark:bg-[#0a0f1d] bg-[#F9FAFB] dark:text-white text-gray-600 overflow-x-hidden`}
+      >
+        {/* ThemeProvider wraps content inside body */}
+        <ThemeProvider>
           {/* Background Effects */}
           <div className="fixed inset-0 pointer-events-none">
-            {/* Background Image */}
             <div className="absolute inset-0 bg-[url('/mainbg.svg')] bg-cover bg-center opacity-50"></div>
-            {/* Gradient Orbs */}
             <div className="absolute top-20 left-20 w-[300px] h-[300px] rounded-full dark:bg-blue-500 bg-amber-300 opacity-20 blur-3xl"></div>
             <div className="absolute bottom-10 right-10 w-[400px] h-[400px] rounded-full dark:bg-indigo-500 bg-teal-500 opacity-20 blur-3xl"></div>
           </div>
@@ -30,8 +29,8 @@ export default function RootLayout({ children }) {
             <main className="flex-grow">{children}</main>
           </div>
           <Toaster position="top-center" reverseOrder={false} />
-        </body>
-      </ThemeProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
