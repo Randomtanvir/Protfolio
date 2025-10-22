@@ -18,7 +18,7 @@ const SkillsSections = () => {
       color: "bg-gradient-to-r from-purple-500 to-purple-400",
     },
     {
-      name: "User Research",
+      name: "User Researche",
       level: "85%",
       color: "bg-gradient-to-r from-indigo-500 to-indigo-400",
     },
