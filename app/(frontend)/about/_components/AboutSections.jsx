@@ -3,8 +3,12 @@ import BackgroundStyle from "./BackgroundStyle";
 import AboutHeader from "./AboutHeader";
 import AboutImage from "./AboutImage";
 import AboutContent from "./AboutContent";
+import { getAboutInfo } from "@/utils/about";
 
-const AboutSections = () => {
+const AboutSections = async () => {
+  const about = await getAboutInfo();
+  console.log(about);
+
   return (
     <section className="py-20 relative overflow-hidden">
       <div className="container mx-auto px-4">
@@ -15,15 +19,15 @@ const AboutSections = () => {
           className="max-w-7xl mx-auto"
         >
           {/* Section Header */}
-          <AboutHeader />
+          <AboutHeader title={about?.title} headline={about?.headline} />
 
           {/* About Content */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Image Column */}
-            <AboutImage />
+            <AboutImage img={about?.aboutImg} />
 
             {/* Content Column */}
-            <AboutContent />
+            <AboutContent about={about} />
           </div>
         </div>
       </div>

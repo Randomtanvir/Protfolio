@@ -8,7 +8,7 @@ const CoreSkills = ({ skills }) => {
       </h4>
       {skills.map((skill, index) => (
         <motion.div
-          key={skill.name}
+          key={skill._id}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -19,16 +19,22 @@ const CoreSkills = ({ skills }) => {
               {skill.name}
             </span>
             <span className="text-gray-600 dark:text-gray-400">
-              {skill.level}
+              {skill.percentage}
             </span>
           </div>
           <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
-              whileInView={{ width: skill.level }}
+              whileInView={{
+                width:
+                  typeof skill.percentage === "number"
+                    ? `${skill.percentage}%`
+                    : skill.percentage,
+              }}
               transition={{ duration: 1, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className={`h-full ${skill.color} rounded-full shadow-lg`}
+              className="h-full rounded-full shadow-lg"
+              style={{ backgroundColor: skill?.color }}
             />
           </div>
         </motion.div>

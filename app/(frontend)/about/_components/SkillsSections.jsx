@@ -4,8 +4,10 @@ import CoreSkills from "./CoreSkills";
 import Technologies from "./Technologies";
 import HighlightTools from "./HighlightTools";
 import BackgroundStyle from "./BackgroundStyle";
+import { getAboutInfo } from "@/utils/about";
 
-const SkillsSections = () => {
+const SkillsSections = async () => {
+  const about = await getAboutInfo();
   const skills = [
     {
       name: "UI Design",
@@ -56,7 +58,7 @@ const SkillsSections = () => {
 
           {/* Progress Bars */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
-            <CoreSkills skills={skills} />
+            <CoreSkills skills={about?.skills} />
             {/* Skill Map */}
             <Technologies skillMap={skillMap} />
           </div>
