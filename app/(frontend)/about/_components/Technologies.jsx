@@ -8,27 +8,18 @@ const Technologies = ({ skillMap }) => {
         <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
           Technologies
         </h4>
-        <div className="grid gap-4">
-          {skillMap.map((row, rowIndex) => (
+        <div className="flex gap-4 flex-wrap">
+          {skillMap?.map((row, index) => (
             <motion.div
-              key={rowIndex}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: rowIndex * 0.1 }}
-              className="flex flex-wrap gap-3"
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className=""
             >
-              {row.map((skill, index) => (
-                <motion.div
-                  key={skill}
-                  whileHover={{
-                    scale: 1.05,
-                    backgroundColor: "rgba(59, 130, 246, 0.1)",
-                  }}
-                  className="px-4 py-2 bg-gray-100/80 dark:bg-gray-700/50 rounded-full text-sm font-medium text-gray-900 dark:text-white border border-gray-200/50 dark:border-gray-600/20 transition-all duration-200"
-                >
-                  {skill}
-                </motion.div>
-              ))}
+              <div className="px-4 py-2 bg-gray-100/80 dark:bg-gray-700/50 rounded-full text-sm font-medium text-gray-900 inline-block dark:text-white border border-gray-200/50 dark:border-gray-600/20 transition-all duration-200">
+                {row}
+              </div>
             </motion.div>
           ))}
         </div>

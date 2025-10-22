@@ -8,41 +8,6 @@ import { getAboutInfo } from "@/utils/about";
 
 const SkillsSections = async () => {
   const about = await getAboutInfo();
-  const skills = [
-    {
-      name: "UI Design",
-      level: "90%",
-      color: "bg-gradient-to-r from-blue-500 to-blue-400",
-    },
-    {
-      name: "Product Design",
-      level: "80%",
-      color: "bg-gradient-to-r from-purple-500 to-purple-400",
-    },
-    {
-      name: "User Researche",
-      level: "85%",
-      color: "bg-gradient-to-r from-indigo-500 to-indigo-400",
-    },
-    {
-      name: "Coding",
-      level: "60%",
-      color: "bg-gradient-to-r from-cyan-500 to-cyan-400",
-    },
-    {
-      name: "No Code Tools",
-      level: "65%",
-      color: "bg-gradient-to-r from-teal-500 to-teal-400",
-    },
-  ];
-
-  const skillMap = [
-    ["HTML", "CSS", "JAVASCRIPT", "REACT", "NEXT.JS"],
-    ["NODE", "EXPRESS", "REST API", "POSTGRES"],
-    ["TAILWIND CSS", "FRAMER MOTION", "TYPESCRIPT"],
-    ["UI/UX DESIGN", "PRODUCT DESIGN", "FIGMA", "ADOBE XD"],
-    ["UI/UX", "PRODUCT DESIGN", "FIGMA", "ADOBE XD"],
-  ];
 
   return (
     <section className="py-20 relative overflow-hidden">
@@ -60,11 +25,11 @@ const SkillsSections = async () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
             <CoreSkills skills={about?.skills} />
             {/* Skill Map */}
-            <Technologies skillMap={skillMap} />
+            <Technologies skillMap={about?.technology[0]?.trim()?.split(",")} />
           </div>
 
           {/* Tools Grid */}
-          <HighlightTools />
+          <HighlightTools highSkill={about?.skillsIcons} />
         </div>
       </div>
 
