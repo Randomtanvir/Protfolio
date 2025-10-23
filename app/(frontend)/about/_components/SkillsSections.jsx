@@ -11,7 +11,7 @@ const SkillsSections = async () => {
 
   return (
     <section className="py-20 relative overflow-hidden">
-      <div className="container mx-auto px-4">
+      <div className="container mb-4 mx-auto px-4">
         <div
           //   initial={{ opacity: 0, y: 20 }}
           //   animate={{ opacity: 1, y: 0 }}

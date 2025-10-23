@@ -2,13 +2,13 @@
 import ServiceCard from "./ServiceCard";
 import { motion } from "framer-motion";
 
-const ServicesBody = ({ services }) => {
+const ServicesBody = ({ services, title }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="container mx-auto px-4 py-20 relative z-10"
+      className="container mx-auto px-4 py-20 mb-3 relative z-10"
     >
       {/* Header Section */}
       <motion.div
@@ -22,7 +22,7 @@ const ServicesBody = ({ services }) => {
           whileHover={{ scale: 1.02 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
-          SERVICES I OFFER
+          {title || "SERVICES I OFFER"}
           <motion.div
             className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500"
             initial={{ scaleX: 0 }}

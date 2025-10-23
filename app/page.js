@@ -6,7 +6,6 @@ import { getProfileInfo } from "@/utils/profile";
 
 export default async function Home() {
   const profileInfo = await getProfileInfo();
-  console.log(profileInfo);
 
   return (
     <>

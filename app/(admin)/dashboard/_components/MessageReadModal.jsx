@@ -56,7 +56,7 @@ const MessageReadModal = ({ activity, isOpen, onClose }) => {
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -69,7 +69,8 @@ const MessageReadModal = ({ activity, isOpen, onClose }) => {
           exit={{ scale: 0.95, opacity: 0, y: 20 }}
           transition={{ duration: 0.3 }}
           onClick={(e) => e.stopPropagation()}
-          className="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 border border-gray-200/20"
+          className="relative w-full max-w-md max-h-full bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 border border-gray-200/20 overflow-y-auto"
+          style={{ scrollbarGutter: "stable" }} // optional: prevent layout shift when scrollbar appears
         >
           {/* Close Button */}
           <button
@@ -92,7 +93,7 @@ const MessageReadModal = ({ activity, isOpen, onClose }) => {
           {/* Message Content */}
           <div className="space-y-3">
             <div>
-              <p className="text-xs  text-gray-500 dark:text-gray-400 mb-1">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
                 Name
               </p>
               <p className="text-sm text-gray-900 dark:text-gray-200 font-medium">
@@ -110,7 +111,7 @@ const MessageReadModal = ({ activity, isOpen, onClose }) => {
             </div>
 
             <div>
-              <p className="text-xs  text-gray-500 dark:text-gray-400 mb-1">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
                 Message
               </p>
               <div className="text-sm text-gray-800 dark:text-gray-300 bg-gray-100/40 dark:bg-gray-800/40 border border-gray-200/10 rounded-lg p-3">
@@ -120,7 +121,6 @@ const MessageReadModal = ({ activity, isOpen, onClose }) => {
           </div>
 
           {/* Footer */}
-
           <div className="mt-6 flex gap-2 justify-end">
             <button
               onClick={handleclickDelete}

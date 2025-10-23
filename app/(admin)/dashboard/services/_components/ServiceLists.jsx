@@ -2,19 +2,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import ServicesCardInDashboard from "./ServicesCardInDashboard";
-import { useState } from "react";
 // Import necessary icons including Edit, Trash, and Check for status
-import {
-  Headset,
-  Crown,
-  TrendingUp,
-  ArrowRight,
-  Pencil,
-  Trash2,
-  Anchor,
-  CheckCircle,
-  XCircle,
-} from "lucide-react";
+import { Headset } from "lucide-react";
 
 const ServiceLists = ({ services, setIsEdit, setService }) => {
   const servicesData = [

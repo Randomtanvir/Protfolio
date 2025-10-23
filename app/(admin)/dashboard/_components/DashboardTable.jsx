@@ -184,16 +184,16 @@ const DashboardTable = () => {
             No messages found.
           </div>
         )}
-
-        {open && readingMessage && (
-          <MessageReadModal
-            activity={readingMessage}
-            isOpen={open}
-            onClose={handleClose}
-            router={router}
-          />
-        )}
       </div>
+
+      {open && readingMessage && (
+        <MessageReadModal
+          activity={readingMessage}
+          isOpen={open}
+          onClose={handleClose}
+          router={router}
+        />
+      )}
 
       {/* Pagination */}
       <Pagination

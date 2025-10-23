@@ -31,7 +31,7 @@ const ScrollArrow = () => {
       aria-label="Scroll to content"
     >
       <svg
-        className="w-8 h-8 text-white/70 hover:text-white/90 transition-colors"
+        className="w-8 h-8 dark:text-white/70 hover:text-green-500 dark:hover:text-white/90 transition-colors"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"

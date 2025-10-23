@@ -45,8 +45,6 @@ const Info = ({ profileInfo }) => {
 export default Info;
 
 const ExprienceInfo = ({ color, label, value }) => {
-  console.log(value);
-
   return (
     <div>
       <motion.div

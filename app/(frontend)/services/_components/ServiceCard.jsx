@@ -1,70 +1,83 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const ServiceCard = ({ service }) => {
   return (
     <div
-      className="
-    relative group 
-    rounded-2xl p-8 overflow-hidden
-    border border-black/10 dark:border-white/10
-    backdrop-blur-sm
-    bg-white/70 dark:bg-gray-900/60
-  "
+      className="relative p-6 overflow-hidden rounded-xl
+                 transition duration-500 ease-in-out 
+                 flex flex-col justify-between items-start
+                 dark:bg-gray-800 bg-[#ffffffcb] backdrop-filter backdrop-blur-md bg-opacity-30
+                 border dark:border-gray-700/50 hover:border-gray-600/70
+                 w-full sm:w-[300px] md:w-[320px] xl:w-[340px] 
+                 h-[400px] sm:h-[420px] md:h-[440px]" // ✅ Fixed size
+      style={{
+        boxShadow: `0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 10px ${service?.iconColor}22`,
+      }}
     >
-      {/* Background with gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/0 dark:from-white/10 dark:to-white/5" />
+      {/* Background Blobs */}
+      <div
+        className="absolute w-28 h-28 rounded-full filter blur-xl opacity-60 transition-all duration-700 -top-8 -left-8"
+        style={{ backgroundColor: service?.blobColor1 }}
+      />
+      <div
+        className="absolute w-28 h-28 rounded-full filter blur-xl opacity-60 transition-all duration-700 -bottom-8 -right-8"
+        style={{ backgroundColor: service?.blobColor2 }}
+      />
 
-      {/* Icon Container */}
-      <div className="relative mb-6">
-        <div className="absolute -inset-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full opacity-20 group-hover:opacity-30 blur-lg transition-opacity" />
-        <div className="relative bg-white/10 dark:bg-white/5 rounded-full p-4 w-16 h-16 flex items-center justify-center group-hover:scale-110 transition-transform">
-          <svg
-            className="w-8 h-8 text-blue-500 dark:text-blue-400 transition-colors group-hover:text-blue-400 dark:group-hover:text-blue-300"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d={service.icon}
-            />
-          </svg>
+      {/* --- Card Content --- */}
+      <div className="relative z-10 flex-grow">
+        <div
+          className={`mb-6 p-4 rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-110`}
+          style={{
+            backgroundColor: `${service?.iconColor}2A`,
+            color: service?.iconColor,
+          }}
+        >
+          <img
+            src={service?.serviceIconUrl || "/icons/service-icon.png"}
+            alt="icon"
+            className="w-10 h-10 rounded-full object-cover"
+          />
         </div>
+
+        <h3 className="text-2xl font-bold dark:text-white text-gray-600 mb-2 line-clamp-1">
+          {service?.serviceName}
+        </h3>
+        <div
+          className="w-12 h-1 bg-opacity-80 mb-4 rounded-full"
+          style={{ backgroundColor: service?.iconColor }}
+        />
+        <p className="text-sm text-gray-400 mb-6 dark:text-gray-300 line-clamp-3 break-words">
+          {service?.serviceBio}
+        </p>
       </div>
 
-      {/* Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
-          {service.title}
-        </h3>
+      {/* Skills */}
+      <div className="flex mb-4 flex-wrap gap-2">
+        {service?.technology?.[0]?.split(",")?.map((skill, index) => (
+          <span
+            key={index}
+            className="text-xs px-2 py-1 rounded-full bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
 
-        <p className="text-gray-600 dark:text-gray-300 mb-6 line-clamp-3">
-          {service.description}
-        </p>
-
-        {/* Skills Tags */}
-        <div className="flex flex-wrap gap-2">
-          {service.skills.map((skill, index) => (
-            <span
-              key={index}
-              className="text-sm px-3 py-1 rounded-full bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 hover:bg-blue-500/20 dark:hover:bg-blue-400/20 transition-colors"
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* Hover Effect Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-indigo-500/0 opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+      {/* Footer */}
+      <div className="relative z-10 w-full pt-4 border-t border-gray-700/50 flex justify-between items-center">
+        <Link
+          href="/projects"
+          className="font-semibold text-sm transition duration-300 ease-in-out flex items-center gap-1"
+          style={{ color: service?.iconColor }}
+        >
+          {service?.ctaText || "Explore"}
+          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+        </Link>
+      </div>
     </div>
   );
 };

@@ -8,18 +8,25 @@ const SocialLinks = () => {
   const [socials, setSocials] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
+    let isMounted = true;
+
     const getSocial = async () => {
       try {
         setLoading(true);
         const data = await getProfileInfo();
-        setSocials(data?.socialLinks);
+        if (isMounted) setSocials(data?.socialLinks || []);
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
+
     getSocial();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
@@ -28,7 +35,7 @@ const SocialLinks = () => {
         Follow Me
       </h5>
       <div className="flex space-x-4">
-        {socials.length > 0 &&
+        {socials?.length > 0 &&
           socials?.map((social, i) => (
             <motion.a
               key={social._id}
