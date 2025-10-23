@@ -2,10 +2,18 @@ import { getAllProjects } from "@/utils/project";
 import ProjectCard from "./_components/ProjectCard";
 
 const ProjectsPage = async () => {
-  const project = await getAllProjects();
+  let project = [];
+
+  try {
+    project = (await getAllProjects()) || []; // runtime fetch
+  } catch (err) {
+    console.error("Failed to fetch about content:", err);
+    project = [];
+  }
+
   const completeProject =
     project?.length > 0
-      ? project.filter((pro) => pro?.status === "complete")
+      ? project?.filter((pro) => pro?.status === "complete")
       : [];
   return (
     <section className="relative w-full min-h-screen bg-[url('/projectsBGlight.svg')] dark:bg-[url('/projectsBG.jpg')] bg-cover bg-center before:absolute before:inset-0 before:bg-gray-800/50 dark:before:bg-[#0a0f1da2] overflow-hidden">

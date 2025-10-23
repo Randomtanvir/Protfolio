@@ -52,7 +52,7 @@ const SkillsForm = ({ profile }) => {
       </h3>
 
       <div className="max-h-96 overflow-auto">
-        {fields.map((field, index) => (
+        {fields?.map((field, index) => (
           <div
             key={field.id}
             className="space-y-2 p-3 mb-1 rounded-lg border border-gray-200 dark:border-gray-700"

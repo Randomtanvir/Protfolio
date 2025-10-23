@@ -108,7 +108,7 @@ const TechnologiesForm = ({ aboutInfo }) => {
           )}
 
           <div className="flex flex-wrap gap-2 mt-2">
-            {techOptions.slice(0, 6).map((tech) => (
+            {techOptions?.slice(0, 6)?.map((tech) => (
               <button
                 key={tech}
                 type="button"
@@ -128,7 +128,7 @@ const TechnologiesForm = ({ aboutInfo }) => {
           </label>
 
           <div className="max-h-40 overflow-auto">
-            {fields.map((field, index) => (
+            {fields?.map((field, index) => (
               <div key={field.id} className="flex items-center gap-3">
                 <input
                   {...register(`skillsIcons.${index}.url`, {
@@ -158,7 +158,7 @@ const TechnologiesForm = ({ aboutInfo }) => {
             ))}
           </div>
           {errors.skillsIcons &&
-            errors.skillsIcons.map(
+            errors?.skillsIcons?.map(
               (err, index) =>
                 err?.url && (
                   <p key={index} className="text-sm text-red-500">

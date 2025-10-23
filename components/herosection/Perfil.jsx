@@ -82,87 +82,88 @@ const Perfil = ({ profileInfo }) => {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="flex space-x-4 justify-center"
             >
-              {profileInfo?.socialLinks?.map((social, index) => (
-                <motion.a
-                  key={social?._id}
-                  href={social?.username}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{
-                    duration: 0.3,
-                    delay: 0.6 + index * 0.1,
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 15,
-                  }}
-                  className="group relative"
-                >
-                  {/* Glow Effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-indigo-500/20 rounded-full blur-xl"
+              {profileInfo?.socialLinks?.length > 0 &&
+                profileInfo?.socialLinks?.map((social, index) => (
+                  <motion.a
+                    key={social?._id}
+                    href={social?.username}
                     initial={{ opacity: 0, scale: 0.8 }}
-                    whileHover={{
-                      opacity: 1,
-                      scale: 1.2,
-                      rotate: 180,
-                    }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
                     transition={{
-                      duration: 0.6,
+                      duration: 0.3,
+                      delay: 0.6 + index * 0.1,
                       type: "spring",
-                      stiffness: 200,
-                      damping: 10,
+                      stiffness: 300,
+                      damping: 15,
                     }}
-                  />
-
-                  {/* Icon Container */}
-                  <motion.div
-                    className="relative w-12 h-12 rounded-full bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm flex items-center justify-center border-2 border-white/20 dark:border-gray-700/20 overflow-hidden"
-                    whileHover={{
-                      borderColor: "rgba(59, 130, 246, 0.5)",
-                      boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)",
-                    }}
-                    transition={{ duration: 0.2 }}
+                    className="group relative"
                   >
-                    {/* Background Animation */}
+                    {/* Glow Effect */}
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-indigo-500/10"
-                      animate={{
-                        backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                      className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-indigo-500/20 rounded-full blur-xl"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileHover={{
+                        opacity: 1,
+                        scale: 1.2,
+                        rotate: 180,
                       }}
                       transition={{
-                        duration: 5,
-                        repeat: Infinity,
-                        ease: "linear",
+                        duration: 0.6,
+                        type: "spring",
+                        stiffness: 200,
+                        damping: 10,
                       }}
                     />
 
-                    {/* Icon */}
+                    {/* Icon Container */}
                     <motion.div
+                      className="relative w-12 h-12 rounded-full bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm flex items-center justify-center border-2 border-white/20 dark:border-gray-700/20 overflow-hidden"
                       whileHover={{
-                        scale: 1.2,
-                        rotate: 360,
+                        borderColor: "rgba(59, 130, 246, 0.5)",
+                        boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)",
                       }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 10,
-                      }}
+                      transition={{ duration: 0.2 }}
                     >
-                      {social?.platform && (
-                        <img
-                          src={social?.platform}
-                          alt={social?.platform}
-                          width={24}
-                          height={24}
-                          className="opacity-60 group-hover:opacity-100 transition-all duration-300"
-                        />
-                      )}
+                      {/* Background Animation */}
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-indigo-500/10"
+                        animate={{
+                          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                        }}
+                        transition={{
+                          duration: 5,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                      />
+
+                      {/* Icon */}
+                      <motion.div
+                        whileHover={{
+                          scale: 1.2,
+                          rotate: 360,
+                        }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 10,
+                        }}
+                      >
+                        {social?.platform && (
+                          <img
+                            src={social?.platform}
+                            alt={social?.platform}
+                            width={24}
+                            height={24}
+                            className="opacity-60 group-hover:opacity-100 transition-all duration-300"
+                          />
+                        )}
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
-                </motion.a>
-              ))}
+                  </motion.a>
+                ))}
             </motion.div>
           </div>
         </motion.div>

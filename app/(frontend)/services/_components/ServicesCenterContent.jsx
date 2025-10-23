@@ -1,9 +1,6 @@
-import { getServiceContent } from "@/utils/service";
 import React from "react";
 
-const ServicesCenterContent = async () => {
-  const serviceContent = await getServiceContent();
-
+const ServicesCenterContent = async ({ serviceContent }) => {
   return (
     <div>
       <div className="flex min-h-screen w-full items-center flex-col z-20 justify-center">

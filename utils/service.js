@@ -3,7 +3,8 @@ export const getServiceContent = async () => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/serviceContent`,
       {
-        cache: "no-store",
+        method: "GET",
+        next: { revalidate: 30 }, // revalidate every 10 seconds
       }
     );
     const result = await res.json();
@@ -17,7 +18,7 @@ export const getServiceContent = async () => {
 export const getAllServices = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/service`, {
-      cache: "no-store",
+      next: { revalidate: 10 },
     });
     const result = await res.json();
     return result.data || [];

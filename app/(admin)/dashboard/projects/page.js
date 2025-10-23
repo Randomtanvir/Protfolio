@@ -3,10 +3,18 @@ import MainComponent from "./_components/MainComponent";
 import { getAllProjects } from "@/utils/project";
 
 const ProjectPageInDashboard = async () => {
-  const projects = await getAllProjects();
+  let projects = [];
+
+  try {
+    projects = (await getAllProjects()) || []; // runtime fetch
+  } catch (error) {
+    console.error("Failed to fetch projects:", error);
+    projects = []; // fallback
+  }
+
   return (
     <>
-      <MainComponent projects={projects} />
+      <MainComponent projects={projects || []} />
     </>
   );
 };

@@ -329,7 +329,7 @@ const CreateProjectForm = ({
                   <Code className="w-4 h-4" /> Technology Stack URLs
                 </label>
                 <div className="space-y-2 mt-2">
-                  {fields.map((field, index) => (
+                  {fields?.map((field, index) => (
                     <div key={field.id} className="flex gap-2 items-center">
                       <input
                         {...register(`technologyUrls.${index}.url`, {

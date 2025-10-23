@@ -56,7 +56,7 @@ const SkillsForm = ({ aboutInfo }) => {
         Core Skills
       </h2>
 
-      {fields.map((field, index) => (
+      {fields?.map((field, index) => (
         <div
           key={field.id}
           className="grid grid-cols-1 sm:grid-cols-5 gap-4 items-center"

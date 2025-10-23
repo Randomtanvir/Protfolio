@@ -4,7 +4,7 @@ import { Message } from "@/models/messageModel";
 
 export async function GET(request, { params }) {
   await connectMongo();
-  const id = params.id;
+  const { id } = await params;
   try {
     const message = await Message.findById(id);
     if (!message) {
@@ -25,7 +25,7 @@ export async function GET(request, { params }) {
 
 export async function DELETE(request, { params }) {
   await connectMongo();
-  const id = params.id;
+  const { id } = await params;
   try {
     const message = await Message.findByIdAndDelete(id);
     if (!message) {
@@ -49,7 +49,7 @@ export async function DELETE(request, { params }) {
 
 export async function PATCH(request, { params }) {
   await connectMongo();
-  const id = params.id;
+  const { id } = await params;
   try {
     const message = await Message.findByIdAndUpdate(
       id,

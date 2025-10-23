@@ -55,7 +55,7 @@ export default function SocialLinksForm({ profile }) {
       </h3>
 
       <div className="grid grid-cols-1 max-h-[360px] overflow-auto gap-6">
-        {fields.map((field, index) => (
+        {fields?.map((field, index) => (
           <div
             key={field.id}
             className="space-y-2 p-3 rounded-lg border border-gray-200 dark:border-gray-700"

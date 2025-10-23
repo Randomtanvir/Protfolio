@@ -7,7 +7,14 @@ import BackgroundStyle from "./BackgroundStyle";
 import { getAboutInfo } from "@/utils/about";
 
 const SkillsSections = async () => {
-  const about = await getAboutInfo();
+  let about = {};
+
+  try {
+    about = (await getAboutInfo()) || {}; // runtime fetch
+  } catch (err) {
+    console.error("Failed to fetch about content:", err);
+    about = {};
+  }
 
   return (
     <section className="py-20 relative overflow-hidden">

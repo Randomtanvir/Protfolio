@@ -4,7 +4,10 @@ export const getAllMessages = async (search = "", page = 1, limit = 5) => {
       `/api/message?search=${encodeURIComponent(
         search
       )}&page=${page}&limit=${limit}`,
-      { cache: "no-store" }
+      {
+        method: "GET",
+        next: { revalidate: 30 }, // revalidate every 10 seconds
+      }
     );
 
     const result = await res.json();

@@ -5,7 +5,14 @@ import Skills from "@/components/herosection/Skills";
 import { getProfileInfo } from "@/utils/profile";
 
 export default async function Home() {
-  const profileInfo = await getProfileInfo();
+  let profileInfo = {};
+
+  try {
+    profileInfo = (await getProfileInfo()) || {}; // fetch at runtime
+  } catch (err) {
+    console.error("Failed to fetch profile content:", err);
+    profileInfo = {};
+  }
 
   return (
     <>

@@ -101,7 +101,7 @@ const DashboardSidebar = () => {
 
         {/* Navigation Menu */}
         <nav className="p-4 space-y-2">
-          {menuItems.map((item, index) => {
+          {menuItems?.map((item, index) => {
             const isActive = pathname === item.href;
 
             return (
@@ -192,7 +192,7 @@ const DashboardSidebar = () => {
 
         {/* Mobile Navigation Menu */}
         <nav className="p-4 space-y-2">
-          {menuItems.map((item, index) => {
+          {menuItems?.map((item, index) => {
             const isActive = pathname === item.href;
 
             return (

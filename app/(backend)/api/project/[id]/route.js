@@ -68,7 +68,7 @@ export const PATCH = async (request, { params }) => {
 
 export const DELETE = async (request, { params }) => {
   await connectMongo();
-  const { id } = params;
+  const { id } = await params;
   try {
     const deletedProject = await Project.findByIdAndDelete(id);
     if (!deletedProject) {
@@ -92,7 +92,7 @@ export const DELETE = async (request, { params }) => {
 
 export const PUT = async (request, { params }) => {
   await connectMongo();
-  const { id } = params;
+  const { id } = await params;
   try {
     const body = await request.json();
     const updatedProject = await Project.findByIdAndUpdate(

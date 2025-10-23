@@ -200,7 +200,7 @@ const ServicesForm = ({
           )}
 
           <div className="flex flex-wrap gap-2 mt-2">
-            {techOptions.slice(0, 6).map((tech) => (
+            {techOptions?.slice(0, 6)?.map((tech) => (
               <button
                 key={tech}
                 type="button"

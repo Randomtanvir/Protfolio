@@ -55,7 +55,7 @@ const AboutForm = () => {
 
       <div className="space-y-4">
         {/* dinamic */}
-        {fields.map((field) => (
+        {fields?.map((field) => (
           <div key={field.name}>
             <label className="text-sm text-gray-500 dark:text-gray-400 block mb-1">
               {field.label}

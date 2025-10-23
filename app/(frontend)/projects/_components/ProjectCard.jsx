@@ -27,9 +27,10 @@ const ProjectCard = ({ project }) => {
           {project?.description}
         </p>
         <div className="flex items-center gap-2 mb-4">
-          {project?.technologyUrls?.map((tech) => (
-            <TechIcon key={tech._id} name={tech?.url} />
-          ))}
+          {project?.technologyUrls?.length > 0 &&
+            project?.technologyUrls?.map((tech) => (
+              <TechIcon key={tech._id} name={tech?.url} />
+            ))}
         </div>
         <Link
           href={project?.liveLink}

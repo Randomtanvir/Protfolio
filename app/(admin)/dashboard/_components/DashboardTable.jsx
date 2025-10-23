@@ -73,7 +73,7 @@ const DashboardTable = () => {
 
   const handleClick = (message) => {
     setMessages((prev) =>
-      prev.map((msg) =>
+      prev?.map((msg) =>
         msg._id === message._id ? { ...msg, read: true } : msg
       )
     );

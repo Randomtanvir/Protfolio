@@ -9,19 +9,20 @@ const Technologies = ({ skillMap }) => {
           Technologies
         </h4>
         <div className="flex gap-4 flex-wrap">
-          {skillMap?.map((row, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className=""
-            >
-              <div className="px-4 py-2 bg-gray-100/80 dark:bg-gray-700/50 rounded-full text-sm font-medium text-gray-900 inline-block dark:text-white border border-gray-200/50 dark:border-gray-600/20 transition-all duration-200">
-                {row}
-              </div>
-            </motion.div>
-          ))}
+          {skillMap?.length > 0 &&
+            skillMap?.map((row, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className=""
+              >
+                <div className="px-4 py-2 bg-gray-100/80 dark:bg-gray-700/50 rounded-full text-sm font-medium text-gray-900 inline-block dark:text-white border border-gray-200/50 dark:border-gray-600/20 transition-all duration-200">
+                  {row}
+                </div>
+              </motion.div>
+            ))}
         </div>
       </div>
     </div>

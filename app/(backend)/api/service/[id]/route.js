@@ -6,7 +6,7 @@ export async function PATCH(request, { params }) {
   await connectMongo();
 
   try {
-    const id = params.id;
+    const { id } = await params;
     if (!id) {
       return NextResponse.json(
         { success: false, message: "Service ID is required" },
@@ -50,7 +50,7 @@ export async function DELETE(request, { params }) {
   await connectMongo();
 
   try {
-    const id = params.id;
+    const { id } = await params;
     if (!id) {
       return NextResponse.json(
         { success: false, message: "Service ID is required" },
@@ -88,7 +88,7 @@ export async function GET(request, { params }) {
   await connectMongo();
 
   try {
-    const id = params.id;
+    const { id } = await params;
     if (!id) {
       return NextResponse.json(
         { success: false, message: "Service ID is required" },

@@ -96,20 +96,21 @@ const ProjectCardInDashboard = ({ project, onEdit }) => {
 
         {/* Technologies */}
         <div className="flex flex-wrap gap-2">
-          {project.technologyUrls.map((tech, index) => (
-            <div
-              key={index}
-              className="w-8 h-8 rounded-full flex items-center justify-center bg-gray-800/50 dark:bg-white/10"
-            >
-              <img
-                src={tech?.url || ""}
-                alt={"name"}
-                width={20}
-                height={20}
-                className="object-contain"
-              />
-            </div>
-          ))}
+          {project?.technologyUrls?.length > 0 &&
+            project?.technologyUrls?.map((tech, index) => (
+              <div
+                key={index}
+                className="w-8 h-8 rounded-full flex items-center justify-center bg-gray-800/50 dark:bg-white/10"
+              >
+                <img
+                  src={tech?.url || ""}
+                  alt={"name"}
+                  width={20}
+                  height={20}
+                  className="object-contain"
+                />
+              </div>
+            ))}
         </div>
 
         {/* Links */}

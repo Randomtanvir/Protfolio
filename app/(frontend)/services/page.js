@@ -5,18 +5,37 @@ import ServicesBody from "./_components/ServicesBody";
 import { getAllServices, getServiceContent } from "@/utils/service";
 
 const ServicesPage = async () => {
-  const services = await getAllServices();
-  const serviceContent = await getServiceContent();
+  let services = [];
+  let serviceContent = {};
+
+  try {
+    services = (await getAllServices()) || []; // fetch at runtime
+  } catch (err) {
+    console.error("Failed to fetch services:", err);
+    services = [];
+  }
+
+  try {
+    serviceContent = (await getServiceContent()) || {}; // fetch at runtime
+  } catch (err) {
+    console.error("Failed to fetch service content:", err);
+    serviceContent = {};
+  }
+
+  const availableservices =
+    services?.length > 0
+      ? services?.filter((ser) => ser?.status === "active")
+      : [];
 
   return (
     <section className="relative w-full min-h-screen bg-gradient-to-br from-gray-50/10 via-gray-100/10 to-gray-50/50 dark:from-gray-900 dark:via-gray-800/30 dark:to-gray-900/20 overflow-hidden">
-      {/* <section className="relative w-full min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 overflow-hidden"> */}
-      {/* Background Effects */}
       <div className="absolute inset-0 bg-[url('/serviceBGlight.svg')] bg-cover bg-center opacity-10 dark:opacity-20" />
-      {/* <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-indigo-500/5 dark:from-blue-500/10 dark:via-purple-500/10 dark:to-indigo-500/10" /> */}
-      <ServicesCenterContent />
+      <ServicesCenterContent serviceContent={serviceContent} />
       <ScrollArrow />
-      <ServicesBody services={services} title={serviceContent?.highlightBio} />
+      <ServicesBody
+        services={availableservices || []}
+        title={serviceContent?.highlightBio || ""}
+      />
     </section>
   );
 };
