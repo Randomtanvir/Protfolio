@@ -16,6 +16,14 @@ const DashboardPage = () => {
 
         <MainComponent />
       </div>
+      <div className="bg-red-300 w-full">
+        <iframe
+          src="https://res.cloudinary.com/dqslz6ztk/raw/upload/v1761322676/resumes/zhxvcozzxtadzealgtlp.pdf"
+          width="100%"
+          height="600px"
+          title="Resume"
+        ></iframe>
+      </div>
     </div>
   );
 };

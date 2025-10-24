@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { fadeInLeft, fadeInUp, fadeInRight } from "@/utils/animation";
+import { fadeInUp, fadeInRight } from "@/utils/animation";
 import ContactInfo from "./ContactInfo";
 import ContactHeader from "./ContactHeader";
 import ContactForm from "./ContactForm";
