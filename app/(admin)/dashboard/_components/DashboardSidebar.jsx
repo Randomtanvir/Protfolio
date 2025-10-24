@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Logout from "./Logout";
 
 const menuItems = [
   {
@@ -160,10 +161,8 @@ const DashboardSidebar = () => {
             </Link>
           </motion.div>
         </div>
-        <div className="absolute  text-center  bottom-5 left-0 right-0 p-4 border-gray-200/10">
-          <h1 className="bg-gradient-to-r from-pink-500 to-red-600 hover:from-pink-600 hover:to-red-700 text-white p-2 rounded-lg cursor-pointer">
-            Logout
-          </h1>
+        <div className="absolute text-center  bottom-5 left-0 right-0 p-4 border-gray-200/10">
+          <Logout />
         </div>
       </motion.aside>
 
@@ -239,21 +238,24 @@ const DashboardSidebar = () => {
         </nav>
 
         {/* Mobile User Profile Section */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200/10">
+        <div className="absolute bottom-20 left-0 right-0 p-4 border-t border-gray-200/10">
           <motion.div
             whileHover={{ y: -2 }}
             className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-100/5 cursor-pointer"
           >
             <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
-            <div>
+            <Link href="/dashboard/admin">
               <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-                Tanvir Ahmad
+                John Doe
               </h3>
               <p className="text-xs text-gray-600 dark:text-gray-400">
                 Administrator
               </p>
-            </div>
+            </Link>
           </motion.div>
+        </div>
+        <div className="absolute text-center  bottom-5 left-0 right-0 p-4 border-gray-200/10">
+          <Logout />
         </div>
       </motion.aside>
     </>

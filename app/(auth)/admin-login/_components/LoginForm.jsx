@@ -1,12 +1,30 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
   const { register, handleSubmit } = useForm();
+  const router = useRouter();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
+    console.log(res);
+
+    if (res?.error) {
+      toast.error(res?.error || "Invalid email or password");
+    } else {
+      router.push("/dashboard");
+      toast.success("Login Successfully");
+    }
   };
   return (
     <div>

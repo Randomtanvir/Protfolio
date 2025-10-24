@@ -2,6 +2,7 @@ import connectMongo from "@/db/db";
 import { Admin } from "@/models/adminModel";
 import { uploadToCloudinary } from "@/utils/cloudinary";
 import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
 
 export const PATCH = async (req) => {
   await connectMongo();
@@ -65,10 +66,10 @@ export const POST = async (req) => {
 
   try {
     const body = await req.json();
-    const { currenntPass, newPass, confirmPass } = body;
+    const { currentPass, newPass, confirmPass } = body;
 
     // All field are needed
-    if (!currenntPass || !newPass || !confirmPass) {
+    if (!currentPass || !newPass || !confirmPass) {
       return NextResponse.json(
         {
           success: false,
@@ -78,7 +79,7 @@ export const POST = async (req) => {
       );
     }
 
-    if (newPass.length > 6 || confirmPass.length < 6) {
+    if (newPass.length < 6 || confirmPass.length < 6) {
       return NextResponse.json(
         {
           success: false,
@@ -109,30 +110,22 @@ export const POST = async (req) => {
         { status: 404 }
       );
     }
-    if (currenntPass !== admin.password) {
+
+    // 3. Hash the newPass and update the database
+    // verify current password
+    const isMatch = await bcrypt.compare(currentPass, admin.password);
+    if (!isMatch) {
       return NextResponse.json(
-        {
-          success: false,
-          message: "Current Password does not match",
-        },
+        { success: false, message: "Current password is incorrect" },
         { status: 400 }
       );
     }
-    // 3. Hash the newPass and update the database
-    // verify current password
-    // const isMatch = await bcrypt.compare(currenntPass, admin.password);
-    // if (!isMatch) {
-    //   return NextResponse.json({ success: false, message: "Current password is incorrect" }, { status: 400 });
-    // }
 
-    // // hash new password
-    // const hashedPassword = await bcrypt.hash(newPass, 10);
+    // hash new password
+    const hashedPassword = await bcrypt.hash(newPass, 10);
 
-    // // update
-    // admin.password = hashedPassword;
-    // await admin.save();
-
-    admin.password = confirmPass;
+    // update
+    admin.password = hashedPassword;
     await admin.save();
 
     return NextResponse.json({
