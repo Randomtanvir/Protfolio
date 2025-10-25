@@ -1,7 +1,17 @@
+import { getAdminInfo } from "@/utils/admin";
 import PasswordChangeForm from "./PasswordChangeForm";
 import ProfileChangeForm from "./ProfileChangeForm";
 
-export default function AdminSetting() {
+export default async function AdminSetting() {
+  let admin = {};
+
+  try {
+    admin = (await getAdminInfo()) || {}; // runtime fetch
+  } catch (error) {
+    console.error("Failed to fetch profile info:", error);
+    admin = {}; // fallback
+  }
+
   return (
     <div className="min-h-screen ">
       <div className="container mx-auto px-4 py-8">
@@ -25,7 +35,7 @@ export default function AdminSetting() {
 
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
           {/* Profile Settings Card */}
-          <ProfileChangeForm />
+          <ProfileChangeForm admin={admin} />
           {/* Password Settings Card */}
           <PasswordChangeForm />
         </div>

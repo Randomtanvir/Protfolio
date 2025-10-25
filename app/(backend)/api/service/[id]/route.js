@@ -7,6 +7,7 @@ export async function PATCH(request, { params }) {
 
   try {
     const { id } = await params;
+
     if (!id) {
       return NextResponse.json(
         { success: false, message: "Service ID is required" },

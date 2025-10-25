@@ -1,13 +1,32 @@
 "use client";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import toast from "react-hot-toast";
+import { getAdminInfo } from "@/utils/admin";
 
 export default function ResumeDownloader() {
-  const resumeUrl =
-    "https://res.cloudinary.com/dqslz6ztk/raw/upload/v1761325347/resumes/xotou8xokf7i3wdapxbj";
+  const [resumeUrl, setResumeUrl] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const getAdmin = async () => {
+      try {
+        const admin = (await getAdminInfo()) || {};
+        if (isMounted) setResumeUrl(admin?.resume || "");
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getAdmin();
+
+    return () => {
+      isMounted = false; // cleanup flag
+    };
+  }, []);
 
   const handleDownload = async () => {
     if (!resumeUrl) return;

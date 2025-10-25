@@ -22,6 +22,9 @@ const adminSchema = new mongoose.Schema(
       required: true,
       minlength: 6,
     },
+    location: {
+      type: String,
+    },
     profilePicture: {
       type: String, // Cloudinary/S3 URL or path
       required: false,

@@ -40,7 +40,7 @@ export const PATCH = async (req) => {
       { $set: body },
       { new: true, upsert: true, select: "-password" }
     );
-
+    console.log(body);
     return NextResponse.json(
       {
         success: true,
@@ -141,6 +141,33 @@ export const POST = async (req) => {
         message: "Server error",
       },
       { status: 500 } // Use 500 Internal Server Error status
+    );
+  }
+};
+
+export const GET = async (req) => {
+  await connectMongo();
+  try {
+    const admin = await Admin.findOne({}).select("-password");
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Data fetch successfully",
+        data: admin,
+      },
+      {
+        status: 200,
+      }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Internal server error",
+      },
+      {
+        status: 500,
+      }
     );
   }
 };

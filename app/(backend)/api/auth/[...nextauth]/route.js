@@ -8,8 +8,6 @@ export const authOptions = {
   providers: [
     CredentialsProvider({
       async authorize(credentials, req) {
-        console.log(credentials);
-        console.log(req);
         await connectMongo();
         const user = await Admin.findOne({ email: credentials.email });
         if (!user) throw new Error("Invalid email");
