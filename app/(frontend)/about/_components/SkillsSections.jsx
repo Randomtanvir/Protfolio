@@ -9,12 +9,12 @@ import { getAboutInfo } from "@/utils/about";
 const SkillsSections = async () => {
   let about = {};
 
-  try {
-    about = (await getAboutInfo()) || {}; // runtime fetch
-  } catch (err) {
-    console.error("Failed to fetch about content:", err);
-    about = {};
-  }
+  // try {
+  //   about = (await getAboutInfo()) || {}; // runtime fetch
+  // } catch (err) {
+  //   console.error("Failed to fetch about content:", err);
+  //   about = {};
+  // }
 
   return (
     <section className="py-20 relative overflow-hidden">
@@ -32,7 +32,13 @@ const SkillsSections = async () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
             <CoreSkills skills={about?.skills} />
             {/* Skill Map */}
-            <Technologies skillMap={about?.technology[0]?.trim()?.split(",")} />
+            <Technologies
+              skillMap={
+                about?.technology?.[0]
+                  ? about.technology[0].trim().split(",")
+                  : []
+              }
+            />
           </div>
 
           {/* Tools Grid */}

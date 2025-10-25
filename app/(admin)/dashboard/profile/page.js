@@ -4,12 +4,12 @@ import { getProfileInfo } from "@/utils/profile";
 const ProfilePage = async () => {
   let profile = {};
 
-  try {
-    profile = (await getProfileInfo()) || {}; // runtime fetch
-  } catch (error) {
-    console.error("Failed to fetch profile info:", error);
-    profile = {}; // fallback
-  }
+  // try {
+  //   profile = (await getProfileInfo()) || {}; // runtime fetch
+  // } catch (error) {
+  //   console.error("Failed to fetch profile info:", error);
+  //   profile = {}; // fallback
+  // }
 
   return (
     <>
