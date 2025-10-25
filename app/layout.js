@@ -4,8 +4,41 @@ import ThemeProvider from "@/provider/ThemeProvider";
 import { Toaster } from "react-hot-toast";
 
 export const metadata = {
-  title: "Tanvir's Portfolio",
-  description: "Showcasing my work and projects",
+  title: "Tanvir Ahmad | Full-Stack Web Developer",
+  description:
+    "Welcome to the portfolio of Tanvir Ahmad — a passionate Full-Stack Web Developer specializing in modern web technologies, crafting responsive, high-performance, and visually engaging digital experiences.",
+  keywords: [
+    "Tanvir Ahmad",
+    "randomtanvir",
+    "randomtanvir07",
+    "Full-Stack Developer",
+    "Web Developer",
+    "Next.js Developer",
+    "React Developer",
+    "Portfolio",
+    "Frontend Developer",
+    "Backend Developer",
+    "JavaScript",
+    "Node.js",
+  ],
+  authors: [{ name: "Tanvir Ahmad" }],
+  openGraph: {
+    title: "Tanvir Ahmad | Full-Stack Web Developer",
+    description:
+      "Explore my portfolio to see web applications, UI/UX designs, and full-stack projects built with modern frameworks like Next.js, React, and Node.js.",
+    url: "https:randomtanvir.mabbu.xyz",
+    siteName: "Tanvir Ahmad Portfolio",
+    images: [
+      {
+        url: "/meta-img.png",
+        width: 1200,
+        height: 630,
+        alt: "Tanvir Ahmad Portfolio Preview",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }) {
