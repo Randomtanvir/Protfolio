@@ -22,11 +22,12 @@ export const metadata = {
     "Node.js",
   ],
   authors: [{ name: "Tanvir Ahmad" }],
+  metadataBase: new URL("https://mabbu.xyz"), // ✅ Fix added here
   openGraph: {
     title: "Tanvir Ahmad | Full-Stack Web Developer",
     description:
       "Explore my portfolio to see web applications, UI/UX designs, and full-stack projects built with modern frameworks like Next.js, React, and Node.js.",
-    url: "https:randomtanvir.mabbu.xyz",
+    url: "https://mabbu.xyz", // ✅ Fixed URL
     siteName: "Tanvir Ahmad Portfolio",
     images: [
       {
