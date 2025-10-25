@@ -35,7 +35,7 @@ export default async function AdminSetting() {
 
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
           {/* Profile Settings Card */}
-          <ProfileChangeForm admin={admin} />
+          <ProfileChangeForm admin={admin || []} />
           {/* Password Settings Card */}
           <PasswordChangeForm />
         </div>
