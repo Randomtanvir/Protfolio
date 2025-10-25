@@ -5,12 +5,12 @@ import ProfileChangeForm from "./ProfileChangeForm";
 export default async function AdminSetting() {
   let admin = {};
 
-  // try {
-  //   admin = (await getAdminInfo()) || {}; // runtime fetch
-  // } catch (error) {
-  //   console.error("Failed to fetch profile info:", error);
-  //   admin = {}; // fallback
-  // }
+  try {
+    admin = (await getAdminInfo()) || {}; // runtime fetch
+  } catch (error) {
+    console.error("Failed to fetch profile info:", error);
+    admin = {}; // fallback
+  }
 
   return (
     <div className="min-h-screen ">
