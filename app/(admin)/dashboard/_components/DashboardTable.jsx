@@ -162,7 +162,7 @@ const DashboardTable = () => {
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap">
                   <span className="text-sm text-gray-500 dark:text-gray-400">
-                    {msg.createdAt.split("T")[0]}
+                    {msg.createdAt?.split("T")[0]}
                   </span>
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap">

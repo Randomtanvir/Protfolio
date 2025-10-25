@@ -13,7 +13,7 @@ export const getAboutInfo = async () => {
     const result = await res.json();
 
     if (result.success) {
-      return result.data || {}; // Return the about data
+      return result?.data || {}; // Return the about data
     } else {
       console.error("Failed to fetch about:", result.message);
       return {};

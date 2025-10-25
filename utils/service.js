@@ -8,7 +8,7 @@ export const getServiceContent = async () => {
       }
     );
     const result = await res.json();
-    return result.data || {};
+    return result?.data || {};
   } catch (error) {
     console.log("Error fetching service content:", error);
     return {};
@@ -21,7 +21,7 @@ export const getAllServices = async () => {
       next: { revalidate: 10 },
     });
     const result = await res.json();
-    return result.data || [];
+    return result?.data || [];
   } catch (error) {
     console.log("Error fetching service:", error);
     return [];

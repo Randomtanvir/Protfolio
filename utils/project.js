@@ -5,7 +5,7 @@ export const getAllProjects = async () => {
     });
 
     const result = await res.json();
-    return result.data || [];
+    return result?.data || [];
   } catch (error) {
     console.log("Error fetching project data:", error);
     return [];

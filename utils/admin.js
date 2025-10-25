@@ -13,7 +13,7 @@ export const getAdminInfo = async () => {
     const result = await res.json();
 
     if (result?.success) {
-      return result.data || {}; // Return admin data
+      return result?.data || {}; // Return admin data
     } else {
       console.error("Failed to fetch admin:", result?.message);
       return {};
