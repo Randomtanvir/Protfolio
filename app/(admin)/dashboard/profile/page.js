@@ -1,5 +1,6 @@
 import { getProfileInfo } from "@/actions/fetcher";
 import MainComponent from "./_components/MainComponent";
+export const dynamic = "force-dynamic";
 
 const ProfilePage = async () => {
   let profile = {};

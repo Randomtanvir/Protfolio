@@ -1,6 +1,7 @@
 import React from "react";
 import MainSearviceComponent from "./_components/MainSearviceComponent";
 import { getAllServices, getServiceContent } from "@/actions/fetcher";
+export const dynamic = "force-dynamic";
 
 export default async function ServicesPage() {
   let serviceContent = {};
