@@ -8,19 +8,19 @@ const ServicesPage = async () => {
   let services = [];
   let serviceContent = {};
 
-  try {
-    services = (await getAllServices()) || []; // fetch at runtime
-  } catch (err) {
-    console.error("Failed to fetch services:", err);
-    services = [];
-  }
+  // try {
+  //   services = (await getAllServices()) || []; // fetch at runtime
+  // } catch (err) {
+  //   console.error("Failed to fetch services:", err);
+  //   services = [];
+  // }
 
-  try {
-    serviceContent = (await getServiceContent()) || {}; // fetch at runtime
-  } catch (err) {
-    console.error("Failed to fetch service content:", err);
-    serviceContent = {};
-  }
+  // try {
+  //   serviceContent = (await getServiceContent()) || {}; // fetch at runtime
+  // } catch (err) {
+  //   console.error("Failed to fetch service content:", err);
+  //   serviceContent = {};
+  // }
 
   const availableservices =
     services?.length > 0

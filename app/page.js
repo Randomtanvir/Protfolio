@@ -2,17 +2,17 @@ import Perfil from "@/components/herosection/Perfil";
 import Info from "@/components/herosection/Info";
 import About from "@/components/herosection/About";
 import Skills from "@/components/herosection/Skills";
-import { getProfileInfo } from "@/utils/profile";
+import { getProfileInfo } from "@/actions/fetcher";
 
 export default async function Home() {
   let profileInfo = {};
 
-  try {
-    profileInfo = (await getProfileInfo()) || {}; // fetch at runtime
-  } catch (err) {
-    console.error("Failed to fetch profile content:", err);
-    profileInfo = {};
-  }
+  // try {
+  //   profileInfo = (await getProfileInfo()) || {}; // fetch at runtime
+  // } catch (err) {
+  //   console.error("Failed to fetch profile content:", err);
+  //   profileInfo = {};
+  // }
 
   return (
     <>

@@ -4,12 +4,12 @@ import ProjectCard from "./_components/ProjectCard";
 const ProjectsPage = async () => {
   let project = [];
 
-  try {
-    project = (await getAllProjects()) || []; // runtime fetch
-  } catch (err) {
-    console.error("Failed to fetch about content:", err);
-    project = [];
-  }
+  // try {
+  //   project = (await getAllProjects()) || []; // runtime fetch
+  // } catch (err) {
+  //   console.error("Failed to fetch about content:", err);
+  //   project = [];
+  // }
 
   const completeProject =
     project?.length > 0
