@@ -5,12 +5,12 @@ import { getAllProjects } from "@/actions/fetcher";
 const ProjectPageInDashboard = async () => {
   let projects = [];
 
-  // try {
-  //   projects = (await getAllProjects()) || []; // runtime fetch
-  // } catch (error) {
-  //   console.error("Failed to fetch projects:", error);
-  //   projects = []; // fallback
-  // }
+  try {
+    projects = (await getAllProjects()) || []; // runtime fetch
+  } catch (error) {
+    console.error("Failed to fetch projects:", error);
+    projects = []; // fallback
+  }
 
   return (
     <>

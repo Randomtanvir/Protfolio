@@ -7,12 +7,12 @@ import { getProfileInfo } from "@/actions/fetcher";
 export default async function Home() {
   let profileInfo = {};
 
-  // try {
-  //   profileInfo = (await getProfileInfo()) || {}; // fetch at runtime
-  // } catch (err) {
-  //   console.error("Failed to fetch profile content:", err);
-  //   profileInfo = {};
-  // }
+  try {
+    profileInfo = (await getProfileInfo()) || {}; // fetch at runtime
+  } catch (err) {
+    console.error("Failed to fetch profile content:", err);
+    profileInfo = {};
+  }
 
   return (
     <>

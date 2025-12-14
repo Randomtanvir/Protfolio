@@ -4,12 +4,12 @@ import MainComponent from "./_components/MainComponent";
 const ProfilePage = async () => {
   let profile = {};
 
-  // try {
-  //   profile = (await getProfileInfo()) || {}; // runtime fetch
-  // } catch (error) {
-  //   console.error("Failed to fetch profile info:", error);
-  //   profile = {}; // fallback
-  // }
+  try {
+    profile = (await getProfileInfo()) || {}; // runtime fetch
+  } catch (error) {
+    console.error("Failed to fetch profile info:", error);
+    profile = {}; // fallback
+  }
 
   return (
     <>
