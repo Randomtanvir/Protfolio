@@ -1,5 +1,6 @@
 import SkillsSections from "./_components/SkillsSections";
 import AboutSections from "./_components/AboutSections";
+export const dynamic = "force-dynamic";
 
 const AboutPage = () => {
   return (

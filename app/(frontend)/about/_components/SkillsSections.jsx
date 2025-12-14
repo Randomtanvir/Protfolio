@@ -5,7 +5,6 @@ import Technologies from "./Technologies";
 import HighlightTools from "./HighlightTools";
 import BackgroundStyle from "./BackgroundStyle";
 import { getAboutInfo } from "@/actions/fetcher";
-export const dynamic = "force-dynamic";
 
 const SkillsSections = async () => {
   let about = {};

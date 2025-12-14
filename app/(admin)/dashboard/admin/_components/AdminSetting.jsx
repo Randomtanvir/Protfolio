@@ -1,7 +1,6 @@
 import { getAdminInfo } from "@/actions/fetcher";
 import PasswordChangeForm from "./PasswordChangeForm";
 import ProfileChangeForm from "./ProfileChangeForm";
-export const dynamic = "force-dynamic";
 
 export default async function AdminSetting() {
   let admin = {};

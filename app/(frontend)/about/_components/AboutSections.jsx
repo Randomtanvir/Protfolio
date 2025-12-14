@@ -5,7 +5,6 @@ import AboutContent from "./AboutContent";
 
 import AboutHeader from "./AboutHeader";
 import { getAboutInfo } from "@/actions/fetcher";
-export const dynamic = "force-dynamic";
 
 const AboutSections = async () => {
   let about = {};

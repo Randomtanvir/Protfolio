@@ -2,7 +2,7 @@
 
 export const getAboutInfo = async () => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/about`, {
+    const res = await fetch(`${process.env.API_URL}/about`, {
       method: "GET",
       next: { revalidate: 30 }, // revalidate every 10 seconds
     });
@@ -13,6 +13,7 @@ export const getAboutInfo = async () => {
     }
 
     const result = await res.json();
+    if (!result) return {};
 
     if (result.success) {
       return result?.data || {}; // Return the about data
@@ -28,7 +29,7 @@ export const getAboutInfo = async () => {
 
 export const getAdminInfo = async () => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin`, {
+    const res = await fetch(`${process.env.API_URL}/admin`, {
       method: "GET",
       next: { revalidate: 30 }, // revalidate every 30 seconds
     });
@@ -55,7 +56,7 @@ export const getAdminInfo = async () => {
 export const getAllMessages = async (search = "", page = 1, limit = 5) => {
   try {
     const res = await fetch(
-      `/api/message?search=${encodeURIComponent(
+      `${process.env.API_URL}/api/message?search=${encodeURIComponent(
         search
       )}&page=${page}&limit=${limit}`,
       {
@@ -74,7 +75,7 @@ export const getAllMessages = async (search = "", page = 1, limit = 5) => {
 
 export const getProfileInfo = async () => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile`, {
+    const res = await fetch(`${process.env.API_URL}/profile`, {
       method: "GET",
       next: { revalidate: 30 }, // revalidate every 10 seconds
     });
@@ -93,7 +94,7 @@ export const getProfileInfo = async () => {
 
 export const getAllProjects = async () => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/project`, {
+    const res = await fetch(`${process.env.API_URL}/project`, {
       next: { revalidate: 10 }, // ✅ 10 সেকেন্ডে fresh data
     });
 
@@ -107,13 +108,10 @@ export const getAllProjects = async () => {
 
 export const getServiceContent = async () => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/serviceContent`,
-      {
-        method: "GET",
-        next: { revalidate: 30 }, // revalidate every 10 seconds
-      }
-    );
+    const res = await fetch(`${process.env.API_URL}/serviceContent`, {
+      method: "GET",
+      next: { revalidate: 30 }, // revalidate every 10 seconds
+    });
     const result = await res.json();
     return result?.data || {};
   } catch (error) {
@@ -124,7 +122,7 @@ export const getServiceContent = async () => {
 
 export const getAllServices = async () => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/service`, {
+    const res = await fetch(`${process.env.API_URL}/service`, {
       next: { revalidate: 10 },
     });
     const result = await res.json();

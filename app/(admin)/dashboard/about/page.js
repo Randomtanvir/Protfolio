@@ -13,8 +13,8 @@ export default async function AboutPage() {
   }
 
   return (
-    <div>
+    <>
       <MainAboutComponent aboutInfo={aboutInfo || {}} />
-    </div>
+    </>
   );
 }
