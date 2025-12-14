@@ -3,7 +3,6 @@ import ServicesCenterContent from "./_components/ServicesCenterContent";
 import ScrollArrow from "./_components/ScrollArrow";
 import ServicesBody from "./_components/ServicesBody";
 import { getAllServices, getServiceContent } from "@/actions/fetcher";
-export const dynamic = "force-dynamic";
 
 const ServicesPage = async () => {
   let services = [];

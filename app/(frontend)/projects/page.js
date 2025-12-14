@@ -1,6 +1,5 @@
 import { getAllProjects } from "@/actions/fetcher";
 import ProjectCard from "./_components/ProjectCard";
-export const dynamic = "force-dynamic";
 
 const ProjectsPage = async () => {
   let project = [];

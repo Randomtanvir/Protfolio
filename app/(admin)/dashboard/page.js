@@ -1,7 +1,6 @@
 import React from "react";
 import DashboardSidebar from "./_components/DashboardSidebar";
 import MainComponent from "./_components/MainComponent";
-export const dynamic = "force-dynamic";
 
 const DashboardPage = () => {
   return (

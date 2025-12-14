@@ -1,7 +1,7 @@
 import React from "react";
 import DashboardSidebar from "../_components/DashboardSidebar";
 import AdminSetting from "./_components/AdminSetting";
-export const dynamic = "force-dynamic";
+
 const AdminPage = () => {
   return (
     <div

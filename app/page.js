@@ -3,7 +3,6 @@ import Info from "@/components/herosection/Info";
 import About from "@/components/herosection/About";
 import Skills from "@/components/herosection/Skills";
 import { getProfileInfo } from "@/actions/fetcher";
-export const dynamic = "force-dynamic";
 
 export default async function Home() {
   let profileInfo = {};
