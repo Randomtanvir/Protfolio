@@ -27,7 +27,7 @@ const ScrollArrow = () => {
   return (
     <button
       onClick={scrollToContent}
-      className="absolute top-[65vh] left-1/2 transform -translate-x-1/2 z-20 animate-bounce"
+      className="absolute cursor-pointer top-[65vh] left-1/2 transform -translate-x-1/2 z-20 animate-bounce"
       aria-label="Scroll to content"
     >
       <svg

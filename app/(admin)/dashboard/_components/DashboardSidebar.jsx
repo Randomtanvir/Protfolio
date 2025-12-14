@@ -153,7 +153,7 @@ const DashboardSidebar = () => {
             <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
             <Link href="/dashboard/admin">
               <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-                John Doe
+                Tanvir Ahmad
               </h3>
               <p className="text-xs text-gray-600 dark:text-gray-400">
                 Administrator
@@ -246,7 +246,7 @@ const DashboardSidebar = () => {
             <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
             <Link href="/dashboard/admin">
               <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-                John Doe
+                Tanvir Ahmad
               </h3>
               <p className="text-xs text-gray-600 dark:text-gray-400">
                 Administrator

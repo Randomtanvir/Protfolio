@@ -1,5 +1,5 @@
+import { getProfileInfo } from "@/actions/fetcher";
 import MainComponent from "./_components/MainComponent";
-import { getProfileInfo } from "@/utils/profile";
 
 const ProfilePage = async () => {
   let profile = {};

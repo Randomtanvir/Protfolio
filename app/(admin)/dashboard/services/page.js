@@ -1,6 +1,6 @@
 import React from "react";
-import { getAllServices, getServiceContent } from "@/utils/service";
 import MainSearviceComponent from "./_components/MainSearviceComponent";
+import { getAllServices, getServiceContent } from "@/actions/fetcher";
 
 export default async function ServicesPage() {
   let serviceContent = {};

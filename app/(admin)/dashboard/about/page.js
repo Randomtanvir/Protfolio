@@ -1,5 +1,5 @@
+import { getAboutInfo } from "@/actions/fetcher";
 import MainAboutComponent from "./_components/MainAboutComponent";
-import { getAboutInfo } from "@/utils/about";
 
 export default async function AboutPage() {
   let aboutInfo = {};

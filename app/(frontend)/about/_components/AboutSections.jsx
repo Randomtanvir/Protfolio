@@ -2,8 +2,9 @@ import React from "react";
 import BackgroundStyle from "./BackgroundStyle";
 import AboutImage from "./AboutImage";
 import AboutContent from "./AboutContent";
-import { getAboutInfo } from "@/utils/about";
+
 import AboutHeader from "./AboutHeader";
+import { getAboutInfo } from "@/actions/fetcher";
 
 const AboutSections = async () => {
   let about = {};

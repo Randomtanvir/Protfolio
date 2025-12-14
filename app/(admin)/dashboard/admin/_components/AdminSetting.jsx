@@ -1,4 +1,4 @@
-import { getAdminInfo } from "@/utils/admin";
+import { getAdminInfo } from "@/actions/fetcher";
 import PasswordChangeForm from "./PasswordChangeForm";
 import ProfileChangeForm from "./ProfileChangeForm";
 

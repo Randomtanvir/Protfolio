@@ -4,7 +4,7 @@ import CoreSkills from "./CoreSkills";
 import Technologies from "./Technologies";
 import HighlightTools from "./HighlightTools";
 import BackgroundStyle from "./BackgroundStyle";
-import { getAboutInfo } from "@/utils/about";
+import { getAboutInfo } from "@/actions/fetcher";
 
 const SkillsSections = async () => {
   let about = {};

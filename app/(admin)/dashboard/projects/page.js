@@ -1,6 +1,6 @@
 import React from "react";
 import MainComponent from "./_components/MainComponent";
-import { getAllProjects } from "@/utils/project";
+import { getAllProjects } from "@/actions/fetcher";
 
 const ProjectPageInDashboard = async () => {
   let projects = [];

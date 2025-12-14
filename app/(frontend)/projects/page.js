@@ -1,4 +1,4 @@
-import { getAllProjects } from "@/utils/project";
+import { getAllProjects } from "@/actions/fetcher";
 import ProjectCard from "./_components/ProjectCard";
 
 const ProjectsPage = async () => {
