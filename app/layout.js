@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 export const metadata = {
   title: "Tanvir Ahmad | JavaScript Developer",
   description:
-    "Welcome to the portfolio of Tanvir Ahmad — a passionate Full-Stack Web Developer specializing in modern web technologies.",
+    "Welcome to the portfolio of Tanvir Ahmad — a passionate JavaScript Developer specializing in modern web technologies.",
 
   metadataBase: new URL("https://mabbu.xyz"),
 
